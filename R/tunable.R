@@ -237,6 +237,17 @@ flexsurvspline_engine_args <-
     component_id = "engine"
   )
 
+polr_engine_args <-
+  tibble::tibble(
+    name = c("method"),
+    call_info = list(
+      list(pkg = "dials", fun = "ordinal_link")
+    ),
+    source = "model_spec",
+    component = "ordinal_reg",
+    component_id = "engine"
+  )
+
 # ------------------------------------------------------------------------------
 
 #' @export
@@ -365,6 +376,15 @@ tunable.survival_reg <- function(x, ...) {
   res <- NextMethod()
   if (x$engine == "flexsurvspline") {
     res <- add_engine_parameters(res, flexsurvspline_engine_args)
+  }
+  res
+}
+
+#' @export
+tunable.ordinal_reg <- function(x, ...) {
+  res <- NextMethod()
+  if (x$engine == "polr") {
+    res <- add_engine_parameters(res, polr_engine_args)
   }
   res
 }
