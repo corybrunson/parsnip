@@ -56,4 +56,7 @@ ordinal_reg <-
 
 # ------------------------------------------------------------------------------
 
-# TODO: update, translate, check_args, tunable & unit tests
+# TODO:
+# * `check_args()` if necessary
+# * `update()` if possible
+# * `translate()` if warranted
