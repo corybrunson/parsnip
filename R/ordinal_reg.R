@@ -56,7 +56,28 @@ ordinal_reg <-
 
 # ------------------------------------------------------------------------------
 
+#' @method update ordinal_reg
+#' @rdname parsnip_update
+#' @export
+update.ordinal_reg <-
+  function(object,
+           parameters = NULL,
+           fresh = FALSE, ...) {
+
+    args <- list()
+
+    update_spec(
+      object = object,
+      parameters = parameters,
+      args_enquo_list = args,
+      fresh = fresh,
+      cls = "ordinal_reg",
+      ...
+    )
+  }
+
+# ------------------------------------------------------------------------------
+
 # TODO:
 # * `check_args()` if necessary
-# * `update()` if possible
 # * `translate()` if warranted
