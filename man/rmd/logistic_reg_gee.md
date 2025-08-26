@@ -12,11 +12,11 @@ This model has no formal tuning parameters. It may be beneficial to determine th
 The **multilevelmod** extension package is required to fit this model.
 
 
-```r
+``` r
 library(multilevelmod)
 
-logistic_reg() %>% 
-  set_engine("gee") %>% 
+logistic_reg() |> 
+  set_engine("gee") |> 
   translate()
 ```
 
@@ -47,14 +47,14 @@ Both `gee:gee()` and `gee:geepack()` specify the id/cluster variable using an ar
 gee(breaks ~ tension, id = wool, data = warpbreaks, corstr = "exchangeable")
 ```
 
-With parsnip, we suggest using the formula method when fitting: 
+With `parsnip`, we suggest using the formula method when fitting: 
 
 ```r
 library(tidymodels)
 data("toenail", package = "HSAUR3")
 
-logistic_reg() %>% 
-  set_engine("gee", corstr = "exchangeable") %>% 
+logistic_reg() |> 
+  set_engine("gee", corstr = "exchangeable") |> 
   fit(outcome ~ treatment * visit + id_var(patientID), data = toenail)
 ```
 
@@ -64,13 +64,13 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 library(tidymodels)
 
 gee_spec <- 
-  logistic_reg() %>% 
+  logistic_reg() |> 
   set_engine("gee", corstr = "exchangeable")
 
 gee_wflow <- 
-  workflow() %>% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = outcome, predictors = c(treatment, visit, patientID)) %>% 
+  add_variables(outcomes = outcome, predictors = c(treatment, visit, patientID)) |> 
   add_model(gee_spec, formula = outcome ~ treatment * visit + id_var(patientID))
 
 fit(gee_wflow, data = toenail)

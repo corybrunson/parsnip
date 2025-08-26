@@ -25,9 +25,9 @@ The choice of `mixture` depends on the engine parameter `solver`, which is autom
 [agua::h2o_train_glm()] for `logistic_reg()` is a wrapper around [h2o::h2o.glm()]. h2o will automatically picks the link function and distribution family or binomial responses. 
 
 
-```r
-logistic_reg() %>% 
-  set_engine("h2o") %>% 
+``` r
+logistic_reg() |> 
+  set_engine("h2o") |> 
   translate()
 ```
 
@@ -44,9 +44,9 @@ logistic_reg() %>%
 To use a non-default argument in [h2o::h2o.glm()], pass in as an engine argument to `set_engine()`:
 
 
-```r
-logistic_reg() %>% 
-  set_engine("h2o", compute_p_values = TRUE) %>% 
+``` r
+logistic_reg() |> 
+  set_engine("h2o", compute_p_values = TRUE) |> 
   translate()
 ```
 

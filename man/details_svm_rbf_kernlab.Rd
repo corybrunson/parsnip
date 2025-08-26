@@ -26,6 +26,8 @@ kernlab estimates it from the data using a heuristic method. See
 \code{\link[kernlab:sigest]{kernlab::sigest()}}. This method uses random
 numbers so, without setting the seed before fitting, the model will not
 be reproducible.
+
+Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{
@@ -34,9 +36,9 @@ be reproducible.
   cost = double(1),
   rbf_sigma = double(1), 
   margin = double(1)
-) \%>\%  
-  set_engine("kernlab") \%>\% 
-  set_mode("regression") \%>\% 
+) |>  
+  set_engine("kernlab") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -60,9 +62,9 @@ be reproducible.
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_rbf(
   cost = double(1),
   rbf_sigma = double(1)
-) \%>\% 
-  set_engine("kernlab") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("kernlab") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

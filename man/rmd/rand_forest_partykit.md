@@ -20,12 +20,12 @@ This model has 3 tuning parameters:
 The **bonsai** extension package is required to fit this model.
 
 
-```r
+``` r
 library(bonsai)
 
-rand_forest() %>% 
-  set_engine("partykit") %>% 
-  set_mode("regression") %>% 
+rand_forest() |> 
+  set_engine("partykit") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -44,12 +44,12 @@ rand_forest() %>%
 The **bonsai** extension package is required to fit this model.
 
 
-```r
+``` r
 library(bonsai)
 
-rand_forest() %>% 
-  set_engine("partykit") %>% 
-  set_mode("classification") %>% 
+rand_forest() |> 
+  set_engine("partykit") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -70,12 +70,12 @@ rand_forest() %>%
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
-rand_forest() %>% 
-  set_engine("partykit") %>% 
-  set_mode("censored regression") %>% 
+rand_forest() |> 
+  set_engine("partykit") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 

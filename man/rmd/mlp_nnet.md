@@ -21,14 +21,14 @@ Note that, in [nnet::nnet()], the maximum number of parameters is an argument wi
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
   epochs = integer(1)
-) %>%  
-  set_engine("nnet") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("nnet") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -52,14 +52,14 @@ Note that parsnip automatically sets linear activation in the last layer.
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
   epochs = integer(1)
-) %>% 
-  set_engine("nnet") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("nnet") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

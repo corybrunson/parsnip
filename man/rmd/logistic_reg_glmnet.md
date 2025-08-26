@@ -22,9 +22,9 @@ The `penalty` parameter has no default and requires a single numeric value. For 
 ## Translation from parsnip to the original package
 
 
-```r
-logistic_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("glmnet") %>% 
+``` r
+logistic_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("glmnet") |> 
   translate()
 ```
 

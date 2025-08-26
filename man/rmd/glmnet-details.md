@@ -14,19 +14,19 @@ Recall that tidymodels uses standardized parameter names across models chosen to
 In tidymodels, our `predict()` methods are defined to make one prediction at a time. For this model, that means predictions are for a single penalty value. For this reason, models that have glmnet engines require the user to always specify a single penalty value when the model is defined. For example, for linear regression: 
 
 ```r
-linear_reg(penalty = 1) %>% set_engine("glmnet")
+linear_reg(penalty = 1) |> set_engine("glmnet")
 ```
 
 When the `predict()` method is called, it automatically uses the penalty that was given when the model was defined. For example: 
 
 
 
-```r
+``` r
 library(tidymodels)
 
 fit <- 
-  linear_reg(penalty = 1) %>% 
-  set_engine("glmnet") %>% 
+  linear_reg(penalty = 1) |> 
+  set_engine("glmnet") |> 
   fit(mpg ~ ., data = mtcars)
 
 # predict at penalty = 1
@@ -45,7 +45,7 @@ predict(fit, mtcars[1:3,])
 However, any penalty values can be predicted simultaneously using the `multi_predict()` method: 
 
 
-```r
+``` r
 # predict at c(0.00, 0.01)
 multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01))
 ```
@@ -59,10 +59,10 @@ multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01))
 ## 3 <tibble [2 x 2]>
 ```
 
-```r
+``` r
 # unnested:
-multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) %>% 
-  add_rowindex() %>% 
+multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) |> 
+  add_rowindex() |> 
   unnest(cols = ".pred")
 ```
 
@@ -83,9 +83,9 @@ multi_predict(fit, mtcars[1:3,], penalty = c(0.00, 0.01)) %>%
 It may appear odd that the `lambda` value does not get used in the fit: 
 
 
-```r
-linear_reg(penalty = 1) %>% 
-  set_engine("glmnet") %>% 
+``` r
+linear_reg(penalty = 1) |> 
+  set_engine("glmnet") |> 
   translate()
 ```
 
@@ -117,12 +117,12 @@ For example, we have found that if you want a fully ridge regression model (i.e.
 If we want to use our own path, the argument is passed as an engine-specific option:
 
 
-```r
+``` r
 coef_path_values <- c(0, 10^seq(-5, 1, length.out = 7))
 
 fit_ridge <- 
-  linear_reg(penalty = 1, mixture = 0) %>% 
-  set_engine("glmnet", path_values = coef_path_values) %>% 
+  linear_reg(penalty = 1, mixture = 0) |> 
+  set_engine("glmnet", path_values = coef_path_values) |> 
   fit(mpg ~ ., data = mtcars)
 
 all.equal(sort(fit_ridge$fit$lambda), coef_path_values)
@@ -132,7 +132,7 @@ all.equal(sort(fit_ridge$fit$lambda), coef_path_values)
 ## [1] TRUE
 ```
 
-```r
+``` r
 # predict at penalty = 1
 predict(fit_ridge, mtcars[1:3,])
 ```
@@ -155,7 +155,7 @@ predict(fit_ridge, mtcars[1:3,])
 When parsnip makes a model, it gives it an extra class. Use the `tidy()` method on the object, it produces coefficients for the penalty that was originally requested: 
 
 
-```r
+``` r
 tidy(fit)
 ```
 
@@ -175,7 +175,7 @@ tidy(fit)
 Note that there is a `tidy()` method for `glmnet` objects in the `broom` package. If this is used directly on the underlying `glmnet` object, it returns _all of coefficients on the path_:
 
 
-```r
+``` r
 # Use the basic tidy() method for glmnet
 all_tidy_coefs <- broom:::tidy.glmnet(fit$fit)
 all_tidy_coefs
@@ -194,7 +194,7 @@ all_tidy_coefs
 ## # i 634 more rows
 ```
 
-```r
+``` r
 length(unique(all_tidy_coefs$lambda))
 ```
 

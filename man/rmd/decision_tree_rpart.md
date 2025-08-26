@@ -18,10 +18,10 @@ This model has 3 tuning parameters:
 ## Translation from parsnip to the original package (classification)
 
 
-```r
-decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
-  set_engine("rpart") %>% 
-  set_mode("classification") %>% 
+``` r
+decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
+  set_engine("rpart") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -45,10 +45,10 @@ decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = dou
 ## Translation from parsnip to the original package (regression)
 
 
-```r
-decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) %>% 
-  set_engine("rpart") %>% 
-  set_mode("regression") %>% 
+``` r
+decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = double(1)) |> 
+  set_engine("rpart") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -74,16 +74,16 @@ decision_tree(tree_depth = integer(1), min_n = integer(1), cost_complexity = dou
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
 decision_tree(
   tree_depth = integer(1),
   min_n = integer(1),
   cost_complexity = double(1)
-) %>% 
-  set_engine("rpart") %>% 
-  set_mode("censored regression") %>% 
+) |> 
+  set_engine("rpart") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 

@@ -31,7 +31,7 @@ This model has 8 tuning parameters:
 The **rules** extension package is required to fit this model.
 
 
-```r
+``` r
 library(rules)
 
 rule_fit(
@@ -43,9 +43,9 @@ rule_fit(
   loss_reduction = numeric(1),
   sample_size = numeric(1),
   penalty = numeric(1)
-) %>%
-  set_engine("xrf") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("xrf") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -78,7 +78,7 @@ The **rules** extension package is required to fit this model.
 
 
 
-```r
+``` r
 library(rules)
 
 rule_fit(
@@ -90,9 +90,9 @@ rule_fit(
   loss_reduction = numeric(1),
   sample_size = numeric(1),
   penalty = numeric(1)
-) %>%
-  set_engine("xrf") %>%
-  set_mode("classification") %>%
+) |>
+  set_engine("xrf") |>
+  set_mode("classification") |>
   translate()
 ```
 

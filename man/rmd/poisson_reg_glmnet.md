@@ -24,11 +24,11 @@ The `penalty` parameter has no default and requires a single numeric value. For 
 The **poissonreg** extension package is required to fit this model.
 
 
-```r
+``` r
 library(poissonreg)
 
-poisson_reg(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("glmnet") %>% 
+poisson_reg(penalty = double(1), mixture = double(1)) |> 
+  set_engine("glmnet") |> 
   translate()
 ```
 

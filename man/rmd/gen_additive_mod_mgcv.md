@@ -18,10 +18,10 @@ This model has 2 tuning parameters:
 ## Translation from parsnip to the original package  (regression)
 
 
-```r
-gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>% 
-  set_engine("mgcv") %>% 
-  set_mode("regression") %>% 
+``` r
+gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) |> 
+  set_engine("mgcv") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -42,10 +42,10 @@ gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>%
 ## Translation from parsnip to the original package  (classification)
 
 
-```r
-gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) %>% 
-  set_engine("mgcv") %>% 
-  set_mode("classification") %>% 
+``` r
+gen_additive_mod(adjust_deg_free = numeric(1), select_features = logical(1)) |> 
+  set_engine("mgcv") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -69,11 +69,11 @@ This model should be used with a model formula so that smooth terms can be speci
 
 
 
-```r
+``` r
 library(mgcv)
-gen_additive_mod() %>% 
-  set_engine("mgcv") %>% 
-  set_mode("regression") %>% 
+gen_additive_mod() |> 
+  set_engine("mgcv") |> 
+  set_mode("regression") |> 
   fit(mpg ~ wt + gear + cyl + s(disp, k = 10), data = mtcars)
 ```
 
@@ -99,16 +99,16 @@ The smoothness of the terms will need to be manually specified (e.g., using `s(x
 When using a workflow, pass the _model formula_ to [workflows::add_model()]'s `formula` argument, and a simplified _preprocessing formula_ elsewhere.
 
 
-```r
+``` r
 spec <- 
-  gen_additive_mod() %>% 
-  set_engine("mgcv") %>% 
+  gen_additive_mod() |> 
+  set_engine("mgcv") |> 
   set_mode("regression")
 
-workflow() %>% 
-  add_model(spec, formula = mpg ~ wt + gear + cyl + s(disp, k = 10)) %>% 
-  add_formula(mpg ~ wt + gear + cyl + disp) %>% 
-  fit(data = mtcars) %>% 
+workflow() |> 
+  add_model(spec, formula = mpg ~ wt + gear + cyl + s(disp, k = 10)) |> 
+  add_formula(mpg ~ wt + gear + cyl + disp) |> 
+  fit(data = mtcars) |> 
   extract_fit_engine()
 ```
 

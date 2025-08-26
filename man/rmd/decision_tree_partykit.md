@@ -24,12 +24,12 @@ An engine-specific parameter for this model is:
 The **bonsai** extension package is required to fit this model.
 
 
-```r
+``` r
 library(bonsai)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("partykit") %>% 
-  set_mode("regression") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -53,12 +53,12 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 The **bonsai** extension package is required to fit this model.
 
 
-```r
+``` r
 library(bonsai)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("partykit") %>% 
-  set_mode("classification") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -84,12 +84,12 @@ decision_tree(tree_depth = integer(1), min_n = integer(1)) %>%
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
-decision_tree(tree_depth = integer(1), min_n = integer(1)) %>% 
-  set_engine("partykit") %>% 
-  set_mode("censored regression") %>% 
+decision_tree(tree_depth = integer(1), min_n = integer(1)) |> 
+  set_engine("partykit") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 

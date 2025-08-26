@@ -12,11 +12,11 @@ This engine has no tuning parameters.
 The **discrim** extension package is required to fit this model.
 
 
-```r
+``` r
 library(discrim)
 
-discrim_linear() %>% 
-  set_engine("MASS") %>% 
+discrim_linear() |> 
+  set_engine("MASS") |> 
   translate()
 ```
 

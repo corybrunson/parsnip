@@ -22,11 +22,11 @@ However, there are a few engine-specific parameters that can be set or optimized
 The **discrim** extension package is required to fit this model.
 
 
-```r
+``` r
 library(discrim)
 
-discrim_linear() %>% 
-  set_engine("sda") %>% 
+discrim_linear() |> 
+  set_engine("sda") |> 
   translate()
 ```
 

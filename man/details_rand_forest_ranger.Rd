@@ -33,9 +33,9 @@ default. For classification, a value of 10 is used.
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) \%>\%  
-  set_engine("ranger") \%>\% 
-  set_mode("regression") \%>\% 
+) |>  
+  set_engine("ranger") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -65,9 +65,9 @@ chosen value if it is not consistent with the actual data dimensions.
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) \%>\% 
-  set_engine("ranger") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("ranger") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -129,6 +129,10 @@ This model can utilize sparse data during model fitting and prediction.
 Both sparse matrices such as dgCMatrix from the \code{Matrix} package and
 sparse tibbles from the \code{sparsevctrs} package are supported. See
 \link{sparse_data} for more information.
+
+While this engine supports sparse data as an input, it doesn’t use it
+any differently than dense data. Hence there it no reason to convert
+back and forth.
 }
 
 \subsection{Saving fitted model objects}{

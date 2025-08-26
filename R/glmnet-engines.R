@@ -138,6 +138,16 @@ predict_raw._glmnetfit <- predict_raw_glmnet
   unname(x[, 1])
 }
 
+organize_glmnet_pre_pred <- function(x, object) {
+  x <- x[, rownames(object$fit$beta), drop = FALSE]
+  if (is_sparse_matrix(x)) {
+    return(x)
+  }
+  
+  as.matrix(x)
+}
+
+
 organize_glmnet_class <- function(x, object) {
   prob_to_class_2(x[, 1], object)
 }
@@ -256,10 +266,10 @@ format_glmnet_multi_linear_reg <- function(pred, penalty) {
 
   pred <- dplyr::full_join(penalty_key, pred, by = "s", multiple = "all")
 
-  pred <- pred %>%
-    dplyr::select(-s) %>%
-    dplyr::arrange(penalty) %>%
-    tidyr::nest(.by = .row, .key = ".pred") %>%
+  pred <- pred |>
+    dplyr::select(-s) |>
+    dplyr::arrange(penalty) |>
+    tidyr::nest(.by = .row, .key = ".pred") |>
     dplyr::select(-.row)
 
   pred
@@ -275,23 +285,23 @@ format_glmnet_multi_logistic_reg <- function(pred, penalty, type, lvl) {
   pred <- tidyr::pivot_longer(pred, -.row, names_to = "s", values_to = ".pred")
 
   if (type == "class") {
-    pred <- pred %>%
+    pred <- pred |>
       dplyr::mutate(.pred_class = dplyr::if_else(.pred >= 0.5, lvl[2], lvl[1]),
                     .pred_class = factor(.pred_class, levels = lvl),
                     .keep = "unused")
   } else {
-    pred <- pred %>%
-      dplyr::mutate(.pred_class_2 = 1 - .pred) %>%
-      rlang::set_names(c(".row", "s", paste0(".pred_", rev(lvl)))) %>%
+    pred <- pred |>
+      dplyr::mutate(.pred_class_2 = 1 - .pred) |>
+      rlang::set_names(c(".row", "s", paste0(".pred_", rev(lvl)))) |>
       dplyr::select(c(".row", "s", paste0(".pred_", lvl)))
   }
 
   pred <- dplyr::full_join(penalty_key, pred, by = "s", multiple = "all")
 
-  pred <- pred %>%
-    dplyr::select(-s) %>%
-    dplyr::arrange(penalty) %>%
-    tidyr::nest(.by = .row, .key = ".pred") %>%
+  pred <- pred |>
+    dplyr::select(-s) |>
+    dplyr::arrange(penalty) |>
+    tidyr::nest(.by = .row, .key = ".pred") |>
     dplyr::select(-.row)
 
   pred
@@ -306,9 +316,9 @@ format_glmnet_multi_multinom_reg <- function(pred, penalty, type, lvl, n_obs) {
     class = format_glmnet_multinom_class(pred, penalty, lvl, n_obs)
   )
 
-  pred <- pred %>%
-    dplyr::arrange(.row, penalty) %>%
-    tidyr::nest(.by = .row, .key = ".pred") %>%
+  pred <- pred |>
+    dplyr::arrange(.row, penalty) |>
+    tidyr::nest(.by = .row, .key = ".pred") |>
     dplyr::select(-.row)
 
   pred
@@ -319,13 +329,13 @@ format_glmnet_multinom_prob <- function(pred, penalty, lvl, n_obs) {
   # dim 1 = observations
   # dim 2 = levels of the response
   # dim 3 = penalty values
-  apply(pred, 3, as_tibble) %>%
-    purrr::list_rbind() %>%
-    rlang::set_names(paste0(".pred_", lvl)) %>%
+  apply(pred, 3, as_tibble) |>
+    purrr::list_rbind() |>
+    rlang::set_names(paste0(".pred_", lvl)) |>
     dplyr::mutate(
       .row = rep(seq_len(n_obs), times = length(penalty)),
       penalty = rep(penalty, each = n_obs)
-    ) %>%
+    ) |>
     dplyr::relocate(penalty)
 }
 

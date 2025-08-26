@@ -38,7 +38,7 @@ Other engine arguments of interest:
 [agua::h2o_train_mlp] is a wrapper around [h2o::h2o.deeplearning()].
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -46,9 +46,9 @@ mlp(
   epochs = integer(1),
   learn_rate = double(1),
   activation = character(1)
-) %>%  
-  set_engine("h2o") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("h2o") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -75,7 +75,7 @@ mlp(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
@@ -83,9 +83,9 @@ mlp(
   epochs = integer(1),
   learn_rate = double(1),
   activation = character(1)
-) %>% 
-  set_engine("h2o") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("h2o") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

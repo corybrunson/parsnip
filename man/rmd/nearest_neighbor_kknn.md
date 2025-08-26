@@ -15,17 +15,20 @@ This model has 3 tuning parameters:
 
 - `dist_power`: Minkowski Distance Order (type: double, default: 2.0)
 
+Parsnip changes the default range for `neighbors` to `c(1, 15)` and `dist_power` to `c(1/10, 2)`.
+
+
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 nearest_neighbor(
   neighbors = integer(1),
   weight_func = character(1),
   dist_power = double(1)
-) %>%  
-  set_engine("kknn") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("kknn") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -49,14 +52,14 @@ nearest_neighbor(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 nearest_neighbor(
   neighbors = integer(1),
   weight_func = character(1),
   dist_power = double(1)
-) %>% 
-  set_engine("kknn") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("kknn") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

@@ -19,17 +19,14 @@ This model has 3 tuning parameters:
 \item \code{prune_method}: Pruning Method (type: character, default: ‘backward’)
 }
 
-The default value of \code{num_terms} depends on the number of predictor
-columns. For a data frame \code{x}, the default is
-\code{min(200, max(20, 2 * ncol(x))) + 1} (see
-\code{\link[earth:earth]{earth::earth()}} and the reference below).
+Parsnip changes the default range for \code{num_terms} to \code{c(50, 500)}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
-  set_engine("earth") \%>\% 
-  set_mode("regression") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
+  set_engine("earth") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -51,9 +48,9 @@ columns. For a data frame \code{x}, the default is
 
 \subsection{Translation from parsnip to the original package (classification)}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) \%>\% 
-  set_engine("earth") \%>\% 
-  set_mode("classification") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{mars(num_terms = integer(1), prod_degree = integer(1), prune_method = character(1)) |> 
+  set_engine("earth") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

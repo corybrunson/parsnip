@@ -30,14 +30,14 @@ For `mtry`, the default value of `NULL` translates to using all available column
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
   stop_iter = integer()
-) %>%
-  set_engine("xgboost") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("xgboost") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -67,14 +67,14 @@ boost_tree(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 boost_tree(
   mtry = integer(), trees = integer(), min_n = integer(), tree_depth = integer(),
   learn_rate = numeric(), loss_reduction = numeric(), sample_size = numeric(),
   stop_iter = integer()
-) %>% 
-  set_engine("xgboost") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("xgboost") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -128,9 +128,9 @@ This model can utilize sparse data during model fitting and prediction. Both spa
 The xgboost function that parsnip indirectly wraps, [xgboost::xgb.train()], takes most arguments via the `params` list argument. To supply engine-specific arguments that are documented in [xgboost::xgb.train()] as arguments to be passed via `params`, supply the list elements directly as named arguments to [set_engine()] rather than as elements in `params`. For example, pass a non-default evaluation metric like this:
 
 
-```r
+``` r
 # good
-boost_tree() %>%
+boost_tree() |>
   set_engine("xgboost", eval_metric = "mae")
 ```
 
@@ -146,9 +146,9 @@ boost_tree() %>%
 ...rather than this:
 
 
-```r
+``` r
 # bad
-boost_tree() %>%
+boost_tree() |>
   set_engine("xgboost", params = list(eval_metric = "mae"))
 ```
 

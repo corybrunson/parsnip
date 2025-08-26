@@ -22,9 +22,9 @@ The \strong{censored} extension package is required to fit this model.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{library(censored)
 
-survival_reg() \%>\% 
-  set_engine("flexsurvspline") \%>\% 
-  set_mode("censored regression") \%>\% 
+survival_reg() |> 
+  set_engine("flexsurvspline") |> 
+  set_mode("censored regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -45,7 +45,7 @@ model specification typically involved the use of
 \code{\link[survival:Surv]{survival::Surv()}}.
 
 For this engine, stratification cannot be specified via
-\code{\link[=strata]{strata()}}, please see
+\code{\link[survival:strata]{survival::strata()}}, please see
 \code{\link[flexsurv:flexsurvspline]{flexsurv::flexsurvspline()}} for
 alternative specifications.
 

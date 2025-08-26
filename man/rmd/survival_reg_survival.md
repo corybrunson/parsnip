@@ -16,12 +16,12 @@ This model has 1 tuning parameters:
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
-survival_reg(dist = character(1)) %>% 
-  set_engine("survival") %>% 
-  set_mode("censored regression") %>% 
+survival_reg(dist = character(1)) |> 
+  set_engine("survival") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 
@@ -49,11 +49,11 @@ The model formula can include _special_ terms, such as [survival::strata()]. The
 For example, in this model, the numeric column `rx` is used to estimate two different scale parameters for each value of the column:
 
 
-```r
+``` r
 library(survival)
 
-survival_reg() %>% 
-  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) %>% 
+survival_reg() |> 
+  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) |> 
   extract_fit_engine()
 ```
 

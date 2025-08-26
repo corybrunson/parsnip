@@ -18,6 +18,9 @@ This model has 3 tuning parameters:
 ‘optimal’)
 \item \code{dist_power}: Minkowski Distance Order (type: double, default: 2.0)
 }
+
+Parsnip changes the default range for \code{neighbors} to \code{c(1, 15)} and
+\code{dist_power} to \code{c(1/10, 2)}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{
@@ -26,9 +29,9 @@ This model has 3 tuning parameters:
   neighbors = integer(1),
   weight_func = character(1),
   dist_power = double(1)
-) \%>\%  
-  set_engine("kknn") \%>\% 
-  set_mode("regression") \%>\% 
+) |>  
+  set_engine("kknn") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -56,9 +59,9 @@ it is not consistent with the actual data dimensions.
   neighbors = integer(1),
   weight_func = character(1),
   dist_power = double(1)
-) \%>\% 
-  set_engine("kknn") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("kknn") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

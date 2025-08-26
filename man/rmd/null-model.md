@@ -6,10 +6,10 @@ For this type of model, the template of the fit calls are below:
 ## parsnip
 
 
-```r
-null_model() %>% 
-  set_engine("parsnip") %>% 
-  set_mode("regression") %>% 
+``` r
+null_model() |> 
+  set_engine("parsnip") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -23,10 +23,10 @@ null_model() %>%
 ```
 
 
-```r
-null_model() %>% 
-  set_engine("parsnip") %>% 
-  set_mode("classification") %>% 
+``` r
+null_model() |> 
+  set_engine("parsnip") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

@@ -22,11 +22,11 @@ The possible values of this parameter, and the functions that they execute, are:
 The **discrim** extension package is required to fit this model.
 
 
-```r
+``` r
 library(discrim)
 
-discrim_quad(regularization_method = character(0)) %>% 
-  set_engine("sparsediscrim") %>% 
+discrim_quad(regularization_method = character(0)) |> 
+  set_engine("sparsediscrim") |> 
   translate()
 ```
 
