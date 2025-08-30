@@ -5,6 +5,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/LICENSE.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/articles/Examples.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/articles/Submodels.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/articles/checklists.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/articles/index.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/articles/parsnip.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/authors.html</loc></url>
@@ -28,7 +29,6 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/censoring_weights.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/check_empty_ellipse.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/condense_control.html</loc></url>
-<url><loc>https://parsnip.tidymodels.org/dev/reference/contr_one_hot.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/control_parsnip.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/convert_helpers.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/convert_stan_interval.html</loc></url>
@@ -91,6 +91,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_logistic_reg_stan_glmer.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mars_earth.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_brulee.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_brulee_two_layer.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_h2o.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_keras.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_nnet.html</loc></url>
@@ -138,6 +139,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/doc-tools.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/dot-extract_surv_status.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/dot-extract_surv_time.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/dot-get_prediction_column_names.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/dot-model_param_name_key.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/eval_args.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/extension-check-helpers.html</loc></url>
@@ -154,6 +156,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/glmnet_helpers_prediction.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/has_multi_predict.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/index.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/keras_activations.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/keras_mlp.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/keras_predict_classes.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/knit_engine_docs.html</loc></url>
@@ -193,7 +196,6 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/repair_call.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/req_pkgs.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/required_pkgs.model_spec.html</loc></url>
-<url><loc>https://parsnip.tidymodels.org/dev/reference/rpart_train.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/rule_fit.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/set_args.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/set_engine.html</loc></url>
