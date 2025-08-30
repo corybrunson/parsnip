@@ -22,12 +22,12 @@ These defaults are set by the `baguette` package and are different than those in
 The **baguette** extension package is required to fit this model.
 
 
-```r
+``` r
 library(baguette)
 
-bag_mlp(penalty = double(1), hidden_units = integer(1)) %>% 
-  set_engine("nnet") %>% 
-  set_mode("classification") %>% 
+bag_mlp(penalty = double(1), hidden_units = integer(1)) |> 
+  set_engine("nnet") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
@@ -52,12 +52,12 @@ bag_mlp(penalty = double(1), hidden_units = integer(1)) %>%
 The **baguette** extension package is required to fit this model.
 
 
-```r
+``` r
 library(baguette)
 
-bag_mlp(penalty = double(1), hidden_units = integer(1)) %>% 
-  set_engine("nnet") %>% 
-  set_mode("regression") %>% 
+bag_mlp(penalty = double(1), hidden_units = integer(1)) |> 
+  set_engine("nnet") |> 
+  set_mode("regression") |> 
   translate()
 ```
 

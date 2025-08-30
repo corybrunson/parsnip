@@ -16,9 +16,9 @@ For `penalty`, the amount of regularization includes only the L2 penalty (i.e., 
 ## Translation from parsnip to the original package
 
 
-```r
-multinom_reg(penalty = double(1)) %>% 
-  set_engine("nnet") %>% 
+``` r
+multinom_reg(penalty = double(1)) |> 
+  set_engine("nnet") |> 
   translate()
 ```
 

@@ -12,11 +12,11 @@ This engine has no tuning parameters.
 The **poissonreg** extension package is required to fit this model.
 
 
-```r
+``` r
 library(poissonreg)
 
-poisson_reg() %>%
-  set_engine("glm") %>%
+poisson_reg() |>
+  set_engine("glm") |>
   translate()
 ```
 

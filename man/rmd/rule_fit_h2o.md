@@ -35,16 +35,16 @@ Other engine arguments of interest:
 The **agua** extension package is required to fit this model.
 
 
-```r
+``` r
 library(rules)
 
 rule_fit(
   trees = integer(1),
   tree_depth = integer(1),
   penalty = numeric(1)
-) %>%
-  set_engine("h2o") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("h2o") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -73,14 +73,14 @@ rule_fit(
 The **agua** extension package is required to fit this model.
 
 
-```r
+``` r
 rule_fit(
   trees = integer(1),
   tree_depth = integer(1),
   penalty = numeric(1)
-) %>%
-  set_engine("h2o") %>%
-  set_mode("classification") %>%
+) |>
+  set_engine("h2o") |>
+  set_mode("classification") |>
   translate()
 ```
 

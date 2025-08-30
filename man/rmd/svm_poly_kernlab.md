@@ -17,18 +17,20 @@ This model has 4 tuning parameters:
 
 - `margin`: Insensitivity Margin (type: double, default: 0.1)
 
+Parsnip changes the default range for `cost` to `c(-10, 5)`.
+
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 svm_poly(
   cost = double(1),
   degree = integer(1),
   scale_factor = double(1), 
   margin = double(1)
-) %>%  
-  set_engine("kernlab") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("kernlab") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -52,14 +54,14 @@ svm_poly(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 svm_poly(
   cost = double(1),
   degree = integer(1),
   scale_factor = double(1)
-) %>% 
-  set_engine("kernlab") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("kernlab") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

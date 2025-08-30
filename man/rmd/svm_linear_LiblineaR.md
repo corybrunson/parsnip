@@ -15,16 +15,18 @@ This model has 2 tuning parameters:
 
 This engine fits models that are L2-regularized for L2-loss. In the [LiblineaR::LiblineaR()] documentation, these are types 1 (classification) and 11 (regression).
 
+Parsnip changes the default range for `cost` to `c(-10, 5)`.
+
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 svm_linear(
   cost = double(1),
   margin = double(1)
-) %>%  
-  set_engine("LiblineaR") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("LiblineaR") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -45,12 +47,12 @@ svm_linear(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 svm_linear(
   cost = double(1)
-) %>% 
-  set_engine("LiblineaR") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("LiblineaR") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

@@ -4,7 +4,6 @@ on:
   push:
     branches: [main, master]
   pull_request:
-    branches: [main, master]
   release:
     types: [published]
   workflow_dispatch:
@@ -47,6 +46,11 @@ jobs:
       - name: Install TensorFlow
         run: |
           tensorflow::install_tensorflow(version='2.13', conda_python_version = NULL)
+        shell: Rscript {0}
+
+      - name: Install Torch
+        run: |
+          torch::install_torch()
         shell: Rscript {0}
 
       - name: Build site

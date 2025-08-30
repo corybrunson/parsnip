@@ -29,9 +29,9 @@ Other engine arguments of interest:
 ## Translation from parsnip to the original package (classification)
 
 
-```r
-logistic_reg(penalty = double(1)) %>% 
-  set_engine("brulee") %>% 
+``` r
+logistic_reg(penalty = double(1)) |> 
+  set_engine("brulee") |> 
   translate()
 ```
 

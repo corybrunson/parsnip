@@ -18,6 +18,8 @@ This model has 2 tuning parameters:
 \item \code{cost}: Cost (type: double, default: 1.0)
 \item \code{margin}: Insensitivity Margin (type: double, default: 0.1)
 }
+
+Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{
@@ -25,9 +27,9 @@ This model has 2 tuning parameters:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1),
   margin = double(1)
-) \%>\%  
-  set_engine("kernlab") \%>\% 
-  set_mode("regression") \%>\% 
+) |>  
+  set_engine("kernlab") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -49,9 +51,9 @@ This model has 2 tuning parameters:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1)
-) \%>\% 
-  set_engine("kernlab") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("kernlab") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

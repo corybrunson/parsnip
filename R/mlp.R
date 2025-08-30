@@ -192,8 +192,15 @@ keras_mlp <-
            seeds = sample.int(10^5, size = 3),
            ...) {
 
-    act_funs <- c("linear", "softmax", "relu", "elu")
-    rlang::arg_match(activation, act_funs,)
+    allowed_keras_activation <- keras_activations()
+    good_activation <- activation %in% allowed_keras_activation
+    if (!all(good_activation)) {
+      cli::cli_abort(
+        "{.arg activation} should be one of: {allowed_keras_activation}, not
+        {.val {activation}}."
+      )
+    }
+    activation <- get_activation_fn(activation)
 
     if (penalty > 0 & dropout > 0) {
       cli::cli_abort("Please use either dropout or weight decay.", call = NULL)
@@ -220,7 +227,7 @@ keras_mlp <-
     model <- keras::keras_model_sequential()
 
     if (penalty > 0) {
-      model %>%
+      model |>
         keras::layer_dense(
           units = hidden_units,
           activation = activation,
@@ -229,7 +236,7 @@ keras_mlp <-
           kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
         )
     } else {
-      model %>%
+      model |>
         keras::layer_dense(
           units = hidden_units,
           activation = activation,
@@ -239,25 +246,25 @@ keras_mlp <-
     }
 
     if (dropout > 0) {
-      model %>%
+      model |>
         keras::layer_dense(
           units = hidden_units,
           activation = activation,
           input_shape = ncol(x),
           kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[1])
-        ) %>%
+        ) |>
         keras::layer_dropout(rate = dropout, seed = seeds[2])
     }
 
     if (factor_y) {
-      model <- model %>%
+      model <- model |>
         keras::layer_dense(
           units = ncol(y),
           activation = 'softmax',
           kernel_initializer = keras::initializer_glorot_uniform(seed = seeds[3])
         )
     } else {
-      model <- model %>%
+      model <- model |>
         keras::layer_dense(
           units = ncol(y),
           activation = 'linear',
@@ -344,6 +351,26 @@ mlp_num_weights <- function(p, hidden_units, classes) {
   ((p + 1) * hidden_units) + ((hidden_units+1) * classes)
 }
 
+allowed_keras_activation <-
+ c("elu", "exponential", "gelu", "hardsigmoid", "linear", "relu", "selu",
+   "sigmoid", "softmax", "softplus", "softsign", "swish", "tanh")
+
+#' Activation functions for neural networks in keras
+#'
+#' @keywords internal
+#' @return A character vector of values.
+#' @export
+keras_activations <- function() {
+  allowed_keras_activation
+}
+
+get_activation_fn <- function(arg, ...) {
+  if (arg == "hardsigmoid") {
+    arg <- "hard_sigmoid"
+  }
+  arg
+}
+
 ## -----------------------------------------------------------------------------
 
 #' @importFrom purrr map
@@ -369,10 +396,10 @@ multi_predict._torch_mlp <-
 
     res <-
       purrr::map(epochs,
-                 ~ predict(object, new_data, type, epochs = .x) %>%
-                   dplyr::mutate(epochs = .x)) %>%
-      purrr::map(~ .x %>% dplyr::mutate(.row = seq_len(nrow(new_data)))) %>%
-      purrr::list_rbind() %>%
+                 ~ predict(object, new_data, type, epochs = .x) |>
+                   dplyr::mutate(epochs = .x)) |>
+      purrr::map(\(x) x |> dplyr::mutate(.row = seq_len(nrow(new_data)))) |>
+      purrr::list_rbind() |>
       dplyr::arrange(.row, epochs)
     res <- split(dplyr::select(res, -.row), res$.row)
     names(res) <- NULL
@@ -406,7 +433,7 @@ keras_predict_classes <- function(object, x) {
       # -1 to assign with keras' zero indexing
       index <- apply(preds, 1, which.max) - 1
     } else {
-      index <- preds %>% keras::k_argmax() %>% as.integer()
+      index <- preds |> keras::k_argmax() |> as.integer()
     }
   } else {
     index <- keras::predict_classes(object$fit, x)

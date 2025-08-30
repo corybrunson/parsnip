@@ -12,12 +12,12 @@ This model has no tuning parameters.
 The **multilevelmod** extension package is required to fit this model.
 
 
-```r
+``` r
 library(multilevelmod)
 
-linear_reg() %>% 
-  set_engine("gls") %>% 
-  set_mode("regression") %>% 
+linear_reg() |> 
+  set_engine("gls") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -42,15 +42,15 @@ The model can accept case weights.
 With parsnip, we suggest using the _fixed effects_ formula method when fitting, but the details of the correlation structure should be passed to `set_engine()` since it is an irregular (but required) argument:
 
 
-```r
+``` r
 library(tidymodels)
 # load nlme to be able to use the `cor*()` functions
 library(nlme)
 
 data("riesby")
 
-linear_reg() %>% 
-  set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject)) %>% 
+linear_reg() |> 
+  set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject)) |> 
   fit(depr_score ~ week, data = riesby)
 ```
 
@@ -81,13 +81,13 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 library(tidymodels)
 
 gls_spec <- 
-  linear_reg() %>% 
+  linear_reg() |> 
   set_engine("gls", correlation =  corCompSymm(form = ~ 1 | subject))
 
 gls_wflow <- 
-  workflow() %>% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = depr_score, predictors = c(week, subject)) %>% 
+  add_variables(outcomes = depr_score, predictors = c(week, subject)) |> 
   add_model(gls_spec, formula = depr_score ~ week)
 
 fit(gls_wflow, data = riesby)

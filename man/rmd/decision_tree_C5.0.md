@@ -14,10 +14,10 @@ This model has 1 tuning parameters:
 ## Translation from parsnip to the original package (classification)
 
 
-```r
-decision_tree(min_n = integer()) %>% 
-  set_engine("C5.0") %>% 
-  set_mode("classification") %>% 
+``` r
+decision_tree(min_n = integer()) |> 
+  set_engine("C5.0") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

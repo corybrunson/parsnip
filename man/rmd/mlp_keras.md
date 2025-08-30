@@ -22,16 +22,16 @@ This model has 5 tuning parameters:
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
   dropout = double(1),
   epochs = integer(1),
   activation = character(1)
-) %>%  
-  set_engine("keras") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("keras") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -56,16 +56,16 @@ mlp(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 mlp(
   hidden_units = integer(1),
   penalty = double(1),
   dropout = double(1),
   epochs = integer(1),
   activation = character(1)
-) %>% 
-  set_engine("keras") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("keras") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

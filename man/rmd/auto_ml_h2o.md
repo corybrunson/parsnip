@@ -20,10 +20,10 @@ Engine arguments of interest
 [agua::h2o_train_auto()] is a wrapper around [h2o::h2o.automl()]. 
 
 
-```r
-auto_ml() %>%  
-  set_engine("h2o") %>% 
-  set_mode("regression") %>% 
+``` r
+auto_ml() |>  
+  set_engine("h2o") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -41,10 +41,10 @@ auto_ml() %>%
 ## Translation from parsnip to the original package (classification)
 
 
-```r
-auto_ml() %>%  
-  set_engine("h2o") %>% 
-  set_mode("classification") %>% 
+``` r
+auto_ml() |>  
+  set_engine("h2o") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

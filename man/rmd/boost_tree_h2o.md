@@ -36,13 +36,13 @@ This model has 8 tuning parameters:
 The **agua** extension package is required to fit this model.
 
 
-```r
+``` r
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric(), stop_iter = integer()
-) %>%
-  set_engine("h2o") %>%
-  set_mode("regression") %>%
+) |>
+  set_engine("h2o") |>
+  set_mode("regression") |>
   translate()
 ```
 
@@ -73,13 +73,13 @@ boost_tree(
 The **agua** extension package is required to fit this model.
 
 
-```r
+``` r
 boost_tree(
   mtry = integer(), trees = integer(), tree_depth = integer(), 
   learn_rate = numeric(), min_n = integer(), loss_reduction = numeric(), stop_iter = integer()
-) %>% 
-  set_engine("h2o") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("h2o") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

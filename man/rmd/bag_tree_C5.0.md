@@ -16,12 +16,12 @@ This model has 1 tuning parameters:
 The **baguette** extension package is required to fit this model.
 
 
-```r
+``` r
 library(baguette)
 
-bag_tree(min_n = integer()) %>% 
-  set_engine("C5.0") %>% 
-  set_mode("classification") %>% 
+bag_tree(min_n = integer()) |> 
+  set_engine("C5.0") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

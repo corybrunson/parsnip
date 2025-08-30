@@ -15,8 +15,8 @@ This engine has no tuning parameters.
 
 \subsection{Translation from parsnip to the original package}{
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() \%>\% 
-  set_engine("lm") \%>\% 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{linear_reg() |> 
+  set_engine("lm") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -60,8 +60,8 @@ suboptimal; in the case of replication weights, \strong{even wrong}. Hence,
 standard errors and analysis of variance tables should be treated with
 care” (emphasis added)
 
-Depending on your application, the degrees of freedown for the model
-(and other statistics) might be incorrect.
+Depending on your application, the degrees of freedom for the model (and
+other statistics) might be incorrect.
 }
 
 \subsection{Saving fitted model objects}{

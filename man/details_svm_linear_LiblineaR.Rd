@@ -22,6 +22,8 @@ This model has 2 tuning parameters:
 This engine fits models that are L2-regularized for L2-loss. In the
 \code{\link[LiblineaR:LiblineaR]{LiblineaR::LiblineaR()}} documentation, these
 are types 1 (classification) and 11 (regression).
+
+Parsnip changes the default range for \code{cost} to \code{c(-10, 5)}.
 }
 
 \subsection{Translation from parsnip to the original package (regression)}{
@@ -29,9 +31,9 @@ are types 1 (classification) and 11 (regression).
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1),
   margin = double(1)
-) \%>\%  
-  set_engine("LiblineaR") \%>\% 
-  set_mode("regression") \%>\% 
+) |>  
+  set_engine("LiblineaR") |> 
+  set_mode("regression") |> 
   translate()
 }\if{html}{\out{</div>}}
 
@@ -53,9 +55,9 @@ are types 1 (classification) and 11 (regression).
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{svm_linear(
   cost = double(1)
-) \%>\% 
-  set_engine("LiblineaR") \%>\% 
-  set_mode("classification") \%>\% 
+) |> 
+  set_engine("LiblineaR") |> 
+  set_mode("classification") |> 
   translate()
 }\if{html}{\out{</div>}}
 

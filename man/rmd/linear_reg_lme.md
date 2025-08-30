@@ -12,12 +12,12 @@ This model has no tuning parameters.
 The **multilevelmod** extension package is required to fit this model.
 
 
-```r
+``` r
 library(multilevelmod)
 
-linear_reg() %>% 
-  set_engine("lme") %>% 
-  set_mode("regression") %>% 
+linear_reg() |> 
+  set_engine("lme") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -39,7 +39,7 @@ This model can use subject-specific coefficient estimates to make predictions (i
 \eta_{i} = (\beta_0 + b_{0i}) + \beta_1x_{i1}
 ```
 
-where $i$ denotes the `i`th independent experimental unit (e.g. subject). When the model has seen subject `i`, it can use that subject's data to adjust the _population_ intercept to be more specific to that subjects results. 
+where `i` denotes the `i`th independent experimental unit (e.g. subject). When the model has seen subject `i`, it can use that subject's data to adjust the _population_ intercept to be more specific to that subjects results. 
 
 What happens when data are being predicted for a subject that was not used in the model fit? In that case, this package uses _only_ the population parameter estimates for prediction: 
 
@@ -66,8 +66,8 @@ With parsnip, we suggest using the _fixed effects_ formula method when fitting, 
 library(tidymodels)
 data("riesby")
 
-linear_reg() %>% 
-  set_engine("lme", random =  ~ 1|subject) %>% 
+linear_reg() |> 
+  set_engine("lme", random =  ~ 1|subject) |> 
   fit(depr_score ~ week, data = riesby)
 ```
 
@@ -77,13 +77,13 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 library(tidymodels)
 
 lme_spec <- 
-  linear_reg() %>% 
+  linear_reg() |> 
   set_engine("lme", random =  ~ 1|subject)
 
 lme_wflow <- 
-  workflow() %>% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = depr_score, predictors = c(week, subject)) %>% 
+  add_variables(outcomes = depr_score, predictors = c(week, subject)) |> 
   add_model(lme_spec, formula = depr_score ~ week)
 
 fit(lme_wflow, data = riesby)

@@ -1,9 +1,12 @@
+skip_if_not_installed("modeldata")
+
 # checking for multi_predict
 hpc <- hpc_data[1:150, c(2:5, 8)]
 
 test_that('parsnip objects', {
+  skip_if_not_installed("earth")
 
-  lm_idea <- linear_reg() %>% set_engine("lm")
+  lm_idea <- linear_reg() |> set_engine("lm")
   expect_false(has_multi_predict(lm_idea))
   expect_snapshot(error = TRUE, predict(lm_idea, mtcars))
 
@@ -13,8 +16,8 @@ test_that('parsnip objects', {
   expect_snapshot(error = TRUE, multi_predict(lm_fit, mtcars))
 
   mars_fit <-
-    mars(mode = "regression") %>%
-    set_engine("earth") %>%
+    mars(mode = "regression") |>
+    set_engine("earth") |>
     fit(mpg ~ ., data = mtcars)
   expect_true(has_multi_predict(mars_fit))
   expect_false(has_multi_predict(extract_fit_engine(mars_fit)))
@@ -38,20 +41,20 @@ test_that('S3 method dispatch/registration', {
 
   expect_no_condition(
     res <-
-      null_model() %>%
-      set_engine("parsnip") %>%
-      set_mode("regression") %>%
-      fit(mpg ~ ., data = mtcars) %>%
+      null_model() |>
+      set_engine("parsnip") |>
+      set_mode("regression") |>
+      fit(mpg ~ ., data = mtcars) |>
       tidy()
   )
   expect_true(tibble::is_tibble(res))
 
   expect_no_condition(
     res <-
-      null_model() %>%
-      set_engine("parsnip") %>%
-      set_mode("classification") %>%
-      fit(class ~ ., data = hpc) %>%
+      null_model() |>
+      set_engine("parsnip") |>
+      set_mode("classification") |>
+      fit(class ~ ., data = hpc) |>
       tidy()
   )
   expect_true(tibble::is_tibble(res))
@@ -69,7 +72,7 @@ test_that("combine_words helper works", {
 # ------------------------------------------------------------------------------
 
 test_that('control class', {
-  x <- linear_reg() %>% set_engine("lm")
+  x <- linear_reg() |> set_engine("lm")
   ctrl <- control_parsnip()
   class(ctrl) <- c("potato", "chair")
   # This doesn't error anymore because `condense_control()` doesn't care about
@@ -108,14 +111,14 @@ test_that('model type functions message informatively with unknown implementatio
   # one possible extension --------------------------------------------------
   # known engine, mode
   expect_snapshot(
-    bag_tree() %>%
-      set_engine("rpart") %>%
+    bag_tree() |>
+      set_engine("rpart") |>
       set_mode("regression")
   )
 
   # known, uniquely identifying mode
   expect_snapshot(
-    bag_tree() %>%
+    bag_tree() |>
       set_mode("censored regression")
   )
 
@@ -127,7 +130,7 @@ test_that('model type functions message informatively with unknown implementatio
 
   # extension-ambiguous engine
   expect_snapshot(
-    bag_tree() %>%
+    bag_tree() |>
       set_engine("rpart")
   )
 })
@@ -141,8 +144,8 @@ test_that('missing implementation checks prompt conservatively with old objects'
   #
   # further tests in tidymodels/extratests@53
   bt <-
-    bag_tree() %>%
-    set_engine("rpart") %>%
+    bag_tree() |>
+    set_engine("rpart") |>
     set_mode("regression")
 
   bt$user_specified_mode <- NULL
@@ -152,12 +155,13 @@ test_that('missing implementation checks prompt conservatively with old objects'
 })
 
 test_that('arguments can be passed to model spec inside function', {
+  skip_if_not_installed("kknn")
   f <- function(k = 5) {
-    nearest_neighbor(mode = "regression", neighbors = k) %>%
+    nearest_neighbor(mode = "regression", neighbors = k) |>
       fit(mpg ~ ., data = mtcars)
   }
 
-  exp_res <- nearest_neighbor(mode = "regression", neighbors = 5) %>%
+  exp_res <- nearest_neighbor(mode = "regression", neighbors = 5) |>
     fit(mpg ~ ., data = mtcars)
 
   expect_no_condition(fun_res <- f())
@@ -249,3 +253,94 @@ test_that('check_outcome works as expected', {
     check_outcome(1:2, cens_spec)
   )
 })
+
+# ------------------------------------------------------------------------------
+
+test_that('obtaining prediction columns', {
+  skip_if_not_installed("modeldata")
+  data(two_class_dat, package = "modeldata")
+
+  ### classification
+  lr_fit <- logistic_reg() |> fit(Class ~ ., data = two_class_dat)
+  expect_equal(
+    .get_prediction_column_names(lr_fit),
+    list(estimate = ".pred_class",
+         probabilities = c(".pred_Class1", ".pred_Class2"))
+  )
+  expect_equal(
+    .get_prediction_column_names(lr_fit, syms = TRUE),
+    list(estimate = list(quote(.pred_class)),
+         probabilities = list(quote(.pred_Class1), quote(.pred_Class2)))
+  )
+
+  ### regression
+  ols_fit <- linear_reg() |> fit(mpg ~ ., data = mtcars)
+  expect_equal(
+    .get_prediction_column_names(ols_fit),
+    list(estimate = ".pred",
+         probabilities = character(0))
+  )
+  expect_equal(
+    .get_prediction_column_names(ols_fit, syms = TRUE),
+    list(estimate = list(quote(.pred)),
+         probabilities = list())
+  )
+
+  ### censored regression
+  # in extratests
+
+  ### bad input
+  expect_snapshot(
+    .get_prediction_column_names(1),
+    error = TRUE
+  )
+
+  unk_fit <- ols_fit
+  unk_fit$spec$mode <- "Depeche"
+  expect_snapshot(
+    .get_prediction_column_names(unk_fit),
+    error = TRUE
+  )
+
+})
+
+
+# ------------------------------------------------------------------------------
+
+# https://github.com/tidymodels/parsnip/issues/1229
+test_that('register local models', {
+  set_new_model("my_model")
+  set_model_mode(model = "my_model", mode = "regression")
+  set_model_engine(
+    "my_model",
+    mode = "regression",
+    eng = "my_engine"
+  )
+
+  my_model <-
+    function(mode = "regression") {
+      new_model_spec(
+        "my_model",
+        args = list(),
+        eng_args = NULL,
+        mode = mode,
+        method = NULL,
+        engine = NULL
+      )
+    }
+
+  set_fit(
+    model = "my_model",
+    eng = "my_engine",
+    mode = "regression",
+    value = list(
+      interface = "matrix",
+      protect = c("formula", "data"),
+      func = c(fun = "my_model_fun"),
+      defaults = list()
+    )
+  )
+
+  expect_snapshot(my_model() |> translate("my_engine"))
+})
+

@@ -12,12 +12,12 @@ This model has no tuning parameters.
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
-proportional_hazards() %>% 
-  set_engine("survival") %>% 
-  set_mode("censored regression") %>% 
+proportional_hazards() |> 
+  set_engine("survival") |> 
+  set_mode("censored regression") |> 
   translate()
 ```
 
@@ -42,12 +42,12 @@ The model formula can include _special_ terms, such as [survival::strata()]. The
 For example, in this model, the numeric column `rx` is used to estimate two different baseline hazards for each value of the column:
 
 
-```r
+``` r
 library(survival)
 
-proportional_hazards() %>% 
-  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) %>% 
-  extract_fit_engine() %>% 
+proportional_hazards() |> 
+  fit(Surv(futime, fustat) ~ age + strata(rx), data = ovarian) |> 
+  extract_fit_engine() |> 
   # Two different hazards for each value of 'rx'
   basehaz()
 ```

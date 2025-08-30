@@ -22,14 +22,14 @@ This model has 3 tuning parameters:
 [agua::h2o_train_rf()] is a wrapper around [h2o::h2o.randomForest()]. 
 
 
-```r
+``` r
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) %>%  
-  set_engine("h2o") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("h2o") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -54,14 +54,14 @@ rand_forest(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) %>% 
-  set_engine("h2o") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("h2o") |> 
+  set_mode("classification") |> 
   translate()
 ```
 

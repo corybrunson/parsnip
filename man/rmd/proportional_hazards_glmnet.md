@@ -24,11 +24,11 @@ The `penalty` parameter has no default and requires a single numeric value. For 
 The **censored** extension package is required to fit this model.
 
 
-```r
+``` r
 library(censored)
 
-proportional_hazards(penalty = double(1), mixture = double(1)) %>% 
-  set_engine("glmnet") %>% 
+proportional_hazards(penalty = double(1), mixture = double(1)) |> 
+  set_engine("glmnet") |> 
   translate()
 ```
 
@@ -68,22 +68,22 @@ For example, in this model, the numeric column `rx` is used to estimate two diff
 
 
 
-```r
+``` r
 library(survival)
 library(censored)
 library(dplyr)
 library(tidyr)
 
 mod <- 
-  proportional_hazards(penalty = 0.01) %>% 
-  set_engine("glmnet", nlambda = 5) %>% 
+  proportional_hazards(penalty = 0.01) |> 
+  set_engine("glmnet", nlambda = 5) |> 
   fit(Surv(futime, fustat) ~ age + ecog.ps + strata(rx), data = ovarian)
 
 pred_data <- data.frame(age = c(50, 50), ecog.ps = c(1, 1), rx = c(1, 2))
 
 # Different survival probabilities for different values of 'rx'
-predict(mod, pred_data, type = "survival", time = 500) %>% 
-  bind_cols(pred_data) %>% 
+predict(mod, pred_data, type = "survival", time = 500) |> 
+  bind_cols(pred_data) |> 
   unnest(.pred)
 ```
 

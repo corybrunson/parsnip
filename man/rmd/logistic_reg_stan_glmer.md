@@ -25,11 +25,11 @@ See `?rstanarm::stan_glmer` and `?rstan::sampling` for more information.
 The **multilevelmod** extension package is required to fit this model.
 
 
-```r
+``` r
 library(multilevelmod)
 
-logistic_reg() %>% 
-  set_engine("stan_glmer") %>% 
+logistic_reg() |> 
+  set_engine("stan_glmer") |> 
   translate()
 ```
 
@@ -52,7 +52,7 @@ This model can use subject-specific coefficient estimates to make predictions (i
 \eta_{i} = (\beta_0 + b_{0i}) + \beta_1x_{i1}
 ```
 
-where $i$ denotes the `i`th independent experimental unit (e.g. subject). When the model has seen subject `i`, it can use that subject's data to adjust the _population_ intercept to be more specific to that subjects results. 
+where `i` denotes the `i`th independent experimental unit (e.g. subject). When the model has seen subject `i`, it can use that subject's data to adjust the _population_ intercept to be more specific to that subjects results. 
 
 What happens when data are being predicted for a subject that was not used in the model fit? In that case, this package uses _only_ the population parameter estimates for prediction: 
 
@@ -79,8 +79,8 @@ With parsnip, we suggest using the formula method when fitting:
 library(tidymodels)
 data("toenail", package = "HSAUR3")
 
-logistic_reg() %>% 
-  set_engine("stan_glmer") %>% 
+logistic_reg() |> 
+  set_engine("stan_glmer") |> 
   fit(outcome ~ treatment * visit + (1 | patientID), data = toenail)
 ```
 
@@ -90,13 +90,13 @@ When using tidymodels infrastructure, it may be better to use a workflow. In thi
 library(tidymodels)
 
 glmer_spec <- 
-  logistic_reg() %>% 
+  logistic_reg() |> 
   set_engine("stan_glmer")
 
 glmer_wflow <- 
-  workflow() %>% 
+  workflow() |> 
   # The data are included as-is using:
-  add_variables(outcomes = outcome, predictors = c(treatment, visit, patientID)) %>% 
+  add_variables(outcomes = outcome, predictors = c(treatment, visit, patientID)) |> 
   add_model(glmer_spec, formula = outcome ~ treatment * visit + (1 | patientID))
 
 fit(glmer_wflow, data = toenail)

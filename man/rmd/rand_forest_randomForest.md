@@ -22,14 +22,14 @@ This model has 3 tuning parameters:
 ## Translation from parsnip to the original package (regression)
 
 
-```r
+``` r
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) %>%  
-  set_engine("randomForest") %>% 
-  set_mode("regression") %>% 
+) |>  
+  set_engine("randomForest") |> 
+  set_mode("regression") |> 
   translate()
 ```
 
@@ -54,14 +54,14 @@ rand_forest(
 ## Translation from parsnip to the original package (classification)
 
 
-```r
+``` r
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
   min_n = integer(1)
-) %>% 
-  set_engine("randomForest") %>% 
-  set_mode("classification") %>% 
+) |> 
+  set_engine("randomForest") |> 
+  set_mode("classification") |> 
   translate()
 ```
 
