@@ -40,7 +40,9 @@ ordinal_reg <-
       rlang::abort("`mode` should be 'classification'")
     }
 
-    args <- list()
+    args <- list(
+      ordinal_link = enquo(ordinal_link)
+    )
 
     parsnip::new_model_spec(
       "ordinal_reg",
