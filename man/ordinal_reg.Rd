@@ -4,7 +4,7 @@
 \alias{ordinal_reg}
 \title{Ordinal regression}
 \usage{
-ordinal_reg(mode = "classification", engine = "polr")
+ordinal_reg(mode = "classification", ordinal_link = NULL, engine = "polr")
 }
 \arguments{
 \item{mode}{A single character string for the prediction outcome mode. The

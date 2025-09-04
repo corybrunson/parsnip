@@ -34,7 +34,7 @@
 #' @keywords internal
 #' @export
 ordinal_reg <-
-  function(mode = "classification", engine = "polr") {
+  function(mode = "classification", ordinal_link = NULL, engine = "polr") {
 
     if (mode != "classification") {
       rlang::abort("`mode` should be 'classification'")
