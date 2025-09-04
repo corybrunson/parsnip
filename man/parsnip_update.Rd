@@ -226,7 +226,7 @@
   ...
 )
 
-\method{update}{ordinal_reg}(object, parameters = NULL, fresh = FALSE, ...)
+\method{update}{ordinal_reg}(object, parameters = NULL, ordinal_link = NULL, fresh = FALSE, ...)
 
 \method{update}{pls}(
   object,

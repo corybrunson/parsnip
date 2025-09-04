@@ -64,9 +64,12 @@ ordinal_reg <-
 update.ordinal_reg <-
   function(object,
            parameters = NULL,
+           ordinal_link = NULL,
            fresh = FALSE, ...) {
 
-    args <- list()
+    args <- list(
+      ordinal_link = enquo(ordinal_link)
+    )
 
     update_spec(
       object = object,
