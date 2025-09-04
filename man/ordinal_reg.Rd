@@ -22,6 +22,19 @@ only possible value for this model is "classification".}
 \item{engine}{A single character string specifying what computational engine
 to use for fitting. Possible engines are listed below. The default for this
 model is \code{"polr"}.}
+
+\item{penalty}{A non-negative number representing the total
+amount of regularization (specific engines only).}
+
+\item{mixture}{A number between zero and one (inclusive) denoting the
+proportion of L1 regularization (i.e. lasso) in the model.
+\itemize{
+\item \code{mixture = 1} specifies a pure lasso model,
+\item \code{mixture = 0}  specifies a ridge regression model, and
+\item \verb{0 < mixture < 1} specifies an elastic net model, interpolating lasso and ridge.
+}
+
+Available for specific engines only.}
 }
 \description{
 \code{ordinal_reg()} defines a generalized linear model that predicts an ordinal

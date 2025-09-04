@@ -16,6 +16,16 @@
 #'  model is `"polr"`.
 #' @param ordinal_link The ordinal link function.
 #' @param odds_link The odds or probability link function.
+#' @param penalty A non-negative number representing the total
+#'  amount of regularization (specific engines only).
+#' @param mixture A number between zero and one (inclusive) denoting the
+#'  proportion of L1 regularization (i.e. lasso) in the model.
+#'
+#'  * `mixture = 1` specifies a pure lasso model,
+#'  * `mixture = 0`  specifies a ridge regression model, and
+#'  * `0 < mixture < 1` specifies an elastic net model, interpolating lasso and ridge.
+#'
+#'  Available for specific engines only.
 #'
 #' @templateVar modeltype ordinal_reg
 #'
@@ -48,7 +58,9 @@ ordinal_reg <-
 
     args <- list(
       ordinal_link = enquo(ordinal_link),
-      odds_link = enquo(odds_link)
+      odds_link = enquo(odds_link),
+      penalty = enquo(penalty),
+      mixture = enquo(mixture)
     )
 
     parsnip::new_model_spec(
@@ -78,7 +90,9 @@ update.ordinal_reg <-
 
     args <- list(
       ordinal_link = enquo(ordinal_link),
-      odds_link = enquo(odds_link)
+      odds_link = enquo(odds_link),
+      penalty = enquo(penalty),
+      mixture = enquo(mixture)
     )
 
     update_spec(
