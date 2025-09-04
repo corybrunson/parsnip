@@ -216,6 +216,25 @@ polr_engine_args <-
     component_id = "engine"
   )
 
+ordinalNet_engine_args <-
+  tibble::tibble(
+    name = c(
+      "link",
+      "family",
+      "lambdaVals",
+      "alpha"
+    ),
+    call_info = list(
+      list(pkg = "dials", fun = "ordinal_link"),
+      list(pkg = "dials", fun = "odds_link"),
+      list(pkg = "dials", fun = "penalty"),
+      list(pkg = "dials", fun = "mixture")
+    ),
+    source = "model_spec",
+    component = "ordinal_reg",
+    component_id = "engine"
+  )
+
 # ------------------------------------------------------------------------------
 # used for brulee engines:
 
@@ -415,8 +434,13 @@ tunable.survival_reg <- function(x, ...) {
 #' @export
 tunable.ordinal_reg <- function(x, ...) {
   res <- NextMethod()
+  # TODO: Check that this is necessary.
   if (x$engine == "polr") {
     res <- add_engine_parameters(res, polr_engine_args)
+  }
+  # TODO: Check that this is necessary.
+  if (x$engine == "ordinalNet") {
+    res <- add_engine_parameters(res, ordinalNet_engine_args)
   }
   res
 }

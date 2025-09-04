@@ -4,11 +4,20 @@
 \alias{ordinal_reg}
 \title{Ordinal regression}
 \usage{
-ordinal_reg(mode = "classification", ordinal_link = NULL, engine = "polr")
+ordinal_reg(
+  mode = "classification",
+  ordinal_link = NULL,
+  odds_link = NULL,
+  engine = "polr"
+)
 }
 \arguments{
 \item{mode}{A single character string for the prediction outcome mode. The
 only possible value for this model is "classification".}
+
+\item{ordinal_link}{The ordinal link function.}
+
+\item{odds_link}{The odds or probability link function.}
 
 \item{engine}{A single character string specifying what computational engine
 to use for fitting. Possible engines are listed below. The default for this

@@ -14,6 +14,8 @@
 #' @param engine A single character string specifying what computational engine
 #'  to use for fitting. Possible engines are listed below. The default for this
 #'  model is `"polr"`.
+#' @param ordinal_link The ordinal link function.
+#' @param odds_link The odds or probability link function.
 #'
 #' @templateVar modeltype ordinal_reg
 #'
@@ -34,14 +36,19 @@
 #' @keywords internal
 #' @export
 ordinal_reg <-
-  function(mode = "classification", ordinal_link = NULL, engine = "polr") {
+  function(
+    mode = "classification",
+    ordinal_link = NULL, odds_link = NULL,
+    engine = "polr"
+  ) {
 
     if (mode != "classification") {
       rlang::abort("`mode` should be 'classification'")
     }
 
     args <- list(
-      ordinal_link = enquo(ordinal_link)
+      ordinal_link = enquo(ordinal_link),
+      odds_link = enquo(odds_link)
     )
 
     parsnip::new_model_spec(
@@ -62,13 +69,16 @@ ordinal_reg <-
 #' @rdname parsnip_update
 #' @export
 update.ordinal_reg <-
-  function(object,
-           parameters = NULL,
-           ordinal_link = NULL,
-           fresh = FALSE, ...) {
+  function(
+    object,
+    parameters = NULL,
+    ordinal_link = NULL, odds_link = NULL,
+    fresh = FALSE, ...
+  ) {
 
     args <- list(
-      ordinal_link = enquo(ordinal_link)
+      ordinal_link = enquo(ordinal_link),
+      odds_link = enquo(odds_link)
     )
 
     update_spec(
