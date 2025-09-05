@@ -147,6 +147,33 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
     # Since the `fit` information is gone for the penalty, we need to have an
     # evaluated value for the parameter.
     x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+
+    # QUESTION: Below is an alternative solution to
+    # `ordered::ordinal_net_score_wrapper`. It works in my examples. It seems
+    # disfavored because it lives in {parsnip} rather than in {ordered}, but
+    # there may be other considerations that make it preferable (or there may
+    # be a better way than either.)
+
+    # # translate odds link options
+    # if (! is.null(x$method$fit$args$family)) {
+    #   save(x, file = "~/Downloads/ordinalNet.rda")
+    #   fam <- quo_get_expr(x$method$fit$args$family)
+    #   fam <- match.arg(fam, c(
+    #     "cumulative_logits",
+    #     "adjacent_categories",
+    #     "continuation_ratio",
+    #     "stopping_ratio"
+    #   ))
+    #   fam <- switch(
+    #     fam,
+    #     cumulative_logits = "cumulative",
+    #     adjacent_categories = "acat",
+    #     continuation_ratio = "cratio",
+    #     stopping_ratio = "sratio"
+    #   )
+    #   x$method$fit$args$family <- quo(!! fam)
+    # }
+
   }
 
   x
