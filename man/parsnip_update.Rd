@@ -231,6 +231,8 @@
   parameters = NULL,
   ordinal_link = NULL,
   odds_link = NULL,
+  penalty = NULL,
+  mixture = NULL,
   fresh = FALSE,
   ...
 )

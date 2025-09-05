@@ -8,6 +8,8 @@ ordinal_reg(
   mode = "classification",
   ordinal_link = NULL,
   odds_link = NULL,
+  penalty = NULL,
+  mixture = NULL,
   engine = "polr"
 )
 }
@@ -18,10 +20,6 @@ only possible value for this model is "classification".}
 \item{ordinal_link}{The ordinal link function.}
 
 \item{odds_link}{The odds or probability link function.}
-
-\item{engine}{A single character string specifying what computational engine
-to use for fitting. Possible engines are listed below. The default for this
-model is \code{"polr"}.}
 
 \item{penalty}{A non-negative number representing the total
 amount of regularization (specific engines only).}
@@ -35,6 +33,10 @@ proportion of L1 regularization (i.e. lasso) in the model.
 }
 
 Available for specific engines only.}
+
+\item{engine}{A single character string specifying what computational engine
+to use for fitting. Possible engines are listed below. The default for this
+model is \code{"polr"}.}
 }
 \description{
 \code{ordinal_reg()} defines a generalized linear model that predicts an ordinal

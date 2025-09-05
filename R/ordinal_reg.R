@@ -48,7 +48,7 @@
 ordinal_reg <-
   function(
     mode = "classification",
-    ordinal_link = NULL, odds_link = NULL,
+    ordinal_link = NULL, odds_link = NULL, penalty = NULL, mixture = NULL,
     engine = "polr"
   ) {
 
@@ -84,7 +84,7 @@ update.ordinal_reg <-
   function(
     object,
     parameters = NULL,
-    ordinal_link = NULL, odds_link = NULL,
+    ordinal_link = NULL, odds_link = NULL, penalty = NULL, mixture = NULL,
     fresh = FALSE, ...
   ) {
 
