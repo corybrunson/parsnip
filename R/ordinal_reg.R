@@ -138,7 +138,7 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
         {.pkg tune} package."#,
           # "i" = "To predict multiple penalties, use {.fn multi_predict}."
         ),
-        call = call
+        call = rlang::caller_env()
       )
     }
 
