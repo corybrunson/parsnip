@@ -107,6 +107,50 @@ update.ordinal_reg <-
 
 # ------------------------------------------------------------------------------
 
+#' @export
+check_args.ordinal_reg <- function(object, call = rlang::caller_env()) {
+
+  args <- lapply(object$args, rlang::eval_tidy)
+
+  # copied from `check_args.linear_reg`
+  check_number_decimal(args$mixture, min = 0, max = 1, allow_null = TRUE, call = call, arg = "mixture")
+  check_number_decimal(args$penalty, min = 0, allow_null = TRUE, call = call, arg = "penalty")
+
+  invisible(object)
+}
+
+# ------------------------------------------------------------------------------
+
+#' @export
+translate.ordinal_reg <- function(x, engine = x$engine, ...) {
+  x <- translate.default(x, engine, ...)
+
+  # adapted from `translate.linear_reg`
+  if (engine == "ordinalNet") {
+    pen <- rlang::eval_tidy(x$args$penalty)
+    if (length(pen) != 1) {
+      cli::cli_abort(
+        c(
+          "x" = "For the ordinalNet engine, {.arg penalty} must be a single number
+        (or a value of {.fn tune}).",
+          "!" = "There are {length(pen)} value{?s} for {.arg penalty}.",
+          "i" = "To try multiple values for total regularization, use the
+        {.pkg tune} package."#,
+          # "i" = "To predict multiple penalties, use {.fn multi_predict}."
+        ),
+        call = call
+      )
+    }
+
+    # x <- set_glmnet_penalty_path(x)
+
+    # Since the `fit` information is gone for the penalty, we need to have an
+    # evaluated value for the parameter.
+    x$args$penalty <- rlang::eval_tidy(x$args$penalty)
+  }
+
+  x
+}
+
 # TODO:
-# * `check_args()` if necessary
 # * `translate()` if warranted
