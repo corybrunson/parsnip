@@ -124,6 +124,8 @@
   cost_complexity = NULL,
   tree_depth = NULL,
   min_n = NULL,
+  split_func = NULL,
+  prune_func = NULL,
   fresh = FALSE,
   ...
 )
@@ -405,6 +407,13 @@ of members of the ensemble.}
 set instances that are used to adjust the model-based prediction.}
 
 \item{max_rules}{The largest number of rules.}
+
+\item{split_func}{The splitting function, one of \code{"abs"} (absolute) or
+\code{"quad"} (quadratic); see \code{?rpartScore::rpartScore()}.}
+
+\item{prune_func}{The pruning measure, one of \code{"mr"} (total misclassification
+rate) or \code{"mc"} (total misclassification cost); see
+\code{?rpartScore::rpartScore()}.}
 
 \item{regularization_method}{A character string for the type of regularized
 estimation. Possible values are: "\code{diagonal}", "\code{min_distance}",
