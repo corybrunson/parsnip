@@ -1,4 +1,4 @@
-#' Ordinal regression
+#' Ordinal regression via polr
 #'
 #' [MASS::polr()] fits a cumulative-link ordinal regression model.
 #'
