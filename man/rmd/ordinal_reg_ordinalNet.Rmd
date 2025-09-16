@@ -1,4 +1,4 @@
-```{r, child = "aaa.Rmd", include = FALSE}
+```{r, child="aaa.Rmd", include=FALSE}
 ```
 
 `r descr_models("ordinal_reg", "ordinalNet")`
@@ -38,4 +38,4 @@ ordinal_reg() %>%
 
 ## References
 
-- Wurm MJ, Rathouz PJ, Hanlon BM. Regularized Ordinal Regression and the ordinalNet R Package. _Journal of Statistical Software_ 99(6):1-42. \doi{10.18637/jss.v099.i06}.
+- Wurm MJ, Rathouz PJ, Hanlon BM. 2021. Regularized Ordinal Regression and the ordinalNet R Package. _Journal of Statistical Software_ 99(6):1-42. \doi{10.18637/jss.v099.i06}.
