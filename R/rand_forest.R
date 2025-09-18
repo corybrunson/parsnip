@@ -4,8 +4,8 @@
 #'
 #' `rand_forest()` defines a model that creates a large number of decision
 #' trees, each independent of the others. The final prediction uses all
-#' predictions from the individual trees and combines them. This function can fit
-#' classification, regression, and censored regression models.
+#' predictions from the individual trees and combines them. This function can
+#' fit classification, regression, and censored regression models.
 #'
 #' \Sexpr[stage=render,results=rd]{parsnip:::make_engine_list("rand_forest")}
 #'
@@ -13,12 +13,15 @@
 #' \url{https://www.tidymodels.org/}.
 #'
 #' @inheritParams boost_tree
-#' @param mtry An integer for the number of predictors that will
-#'  be randomly sampled at each split when creating the tree models.
-#' @param trees An integer for the number of trees contained in
-#'  the ensemble.
-#' @param min_n An integer for the minimum number of data points
-#'  in a node that are required for the node to be split further.
+#' @param mtry An integer for the number of predictors that will be randomly
+#'   sampled at each split when creating the tree models.
+#' @param trees An integer for the number of trees contained in the ensemble.
+#' @param min_n An integer for the minimum number of data points in a node that
+#'   are required for the node to be split further.
+#' @param
+#' naive_scores,num_scores,num_score_trees,num_score_perms,num_scores_best,ord_metric
+#' Arguments specific to [ordinalForest::ordfor()]; respectively passed to
+#' `naive`, `nsets`, `ntreeperdiv`, `npermtrial`, `nbest`, and `perffunction`.
 #'
 #' @templateVar modeltype rand_forest
 #' @template spec-details
@@ -34,12 +37,21 @@
 #' @export
 
 rand_forest <-
-  function(mode = "unknown", engine = "ranger", mtry = NULL, trees = NULL, min_n = NULL) {
+  function(mode = "unknown", engine = "ranger",
+           mtry = NULL, trees = NULL, min_n = NULL,
+           naive_scores = NULL, num_scores = NULL, num_score_trees = NULL,
+           num_score_perms = NULL, num_scores_best = NULL, ord_metric = NULL) {
 
     args <- list(
       mtry   = enquo(mtry),
       trees  = enquo(trees),
-      min_n  = enquo(min_n)
+      min_n  = enquo(min_n),
+      naive_scores    = enquo(naive_scores),
+      num_scores      = enquo(num_scores),
+      num_score_trees = enquo(num_score_trees),
+      num_score_perms = enquo(num_score_perms),
+      num_scores_best = enquo(num_scores_best),
+      ord_metric      = enquo(ord_metric)
     )
 
     new_model_spec(
@@ -63,12 +75,20 @@ update.rand_forest <-
   function(object,
            parameters = NULL,
            mtry = NULL, trees = NULL, min_n = NULL,
+           naive_scores = NULL, num_scores = NULL, num_score_trees = NULL,
+           num_score_perms = NULL, num_scores_best = NULL, ord_metric = NULL,
            fresh = FALSE, ...) {
 
     args <- list(
       mtry   = enquo(mtry),
       trees  = enquo(trees),
-      min_n  = enquo(min_n)
+      min_n  = enquo(min_n),
+      naive_scores    = enquo(naive_scores),
+      num_scores      = enquo(num_scores),
+      num_score_trees = enquo(num_score_trees),
+      num_score_perms = enquo(num_score_perms),
+      num_scores_best = enquo(num_scores_best),
+      ord_metric      = enquo(ord_metric)
     )
 
     update_spec(

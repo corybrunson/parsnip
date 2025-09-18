@@ -272,6 +272,12 @@
   mtry = NULL,
   trees = NULL,
   min_n = NULL,
+  naive_scores = NULL,
+  num_scores = NULL,
+  num_score_trees = NULL,
+  num_score_perms = NULL,
+  num_scores_best = NULL,
+  ord_metric = NULL,
   fresh = FALSE,
   ...
 )
@@ -468,6 +474,9 @@ have \emph{non-zero} coefficients for each PLS component (via regularization).
 This value is used for all PLS components for X.}
 
 \item{num_comp}{The number of PLS components to retain.}
+
+\item{naive_scores, num_scores, num_score_trees, num_score_perms, num_scores_best, ord_metric}{Arguments specific to \code{\link[ordinalForest:ordfor]{ordinalForest::ordfor()}}; respectively passed to
+\code{naive}, \code{nsets}, \code{ntreeperdiv}, \code{npermtrial}, \code{nbest}, and \code{perffunction}.}
 
 \item{dist}{A character string for the probability distribution of the
 outcome. The default is "weibull".}
