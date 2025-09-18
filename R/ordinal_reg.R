@@ -148,7 +148,7 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
     # evaluated value for the parameter.
     x$args$penalty <- rlang::eval_tidy(x$args$penalty)
 
-    # QUESTION: Below is an alternative solution to
+    # REVIEW: Below is an alternative solution to
     # `ordered::ordinal_net_score_wrapper`. It works in my examples. It seems
     # disfavored because it lives in {parsnip} rather than in {ordered}, but
     # there may be other considerations that make it preferable (or there may
@@ -178,6 +178,3 @@ translate.ordinal_reg <- function(x, engine = x$engine, ...) {
 
   x
 }
-
-# TODO:
-# * `translate()` if warranted
