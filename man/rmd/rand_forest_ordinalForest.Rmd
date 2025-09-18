@@ -9,7 +9,7 @@
 #| label: ordinalForest-param-info
 #| echo: false
 defaults <- 
-  # TODO: Add additional parameters.
+  # FIXME: Add additional parameters.
   tibble::tibble(parsnip = c("mtry", "trees", "min_n"),
                  default = c("see below", "500L", "see below"))
 
@@ -32,7 +32,7 @@ param$item
 ## Translation from parsnip to the original package (classification)
 
 ```{r, ordinalForest-cls}
-# TODO: Add additional parameters.
+# FIXME: Add additional parameters.
 rand_forest(
   mtry = integer(1),
   trees = integer(1),
