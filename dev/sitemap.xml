@@ -3,7 +3,6 @@
 <url><loc>https://parsnip.tidymodels.org/dev/CONTRIBUTING.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/LICENSE-text.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/LICENSE.html</loc></url>
-<url><loc>https://parsnip.tidymodels.org/dev/articles/Examples.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/articles/Submodels.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/articles/checklists.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/articles/index.html</loc></url>
@@ -44,6 +43,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_bag_tree_rpart.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_bart_dbarts.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_C5.0.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_catboost.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_h2o.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_lightgbm.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_boost_tree_mboost.html</loc></url>
@@ -95,6 +95,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_h2o.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_keras.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_nnet.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_mlp_qrnn.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_brulee.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_glmnet.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_multinom_reg_h2o.html</loc></url>
@@ -118,6 +119,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_proportional_hazards_glmnet.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_proportional_hazards_survival.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_aorsf.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_grf.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_h2o.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_partykit.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/details_rand_forest_randomForest.html</loc></url>
@@ -169,6 +171,7 @@
 <url><loc>https://parsnip.tidymodels.org/dev/reference/matrix_to_quantile_pred.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/max_mtry_formula.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/maybe_matrix.html</loc></url>
+<url><loc>https://parsnip.tidymodels.org/dev/reference/mcqrnn_train.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/min_cols.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/mlp.html</loc></url>
 <url><loc>https://parsnip.tidymodels.org/dev/reference/model_db.html</loc></url>
