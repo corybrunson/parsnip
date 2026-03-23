@@ -52,7 +52,7 @@ ordinal_reg(ordinal_link = character(0), odds_link = character(0)) %>%
 
 _However_, the documentation in [VGAM::vglm()] notes that matrix of case weights can be passed so that different classes have different weights. tidymodels assumes vector of a weights; a matrix cannot be passed in. 
 
-Also, the engine documentation notes that: "The values of weights must be positive; try setting a very small value such as 1.0e-8 to effectively delete an observation."
+Also, the engine documentation notes that: "The values of `weights` must be positive; try setting a very small value such as `1.0e-8` to effectively delete an observation."
 
 ## Prediction types
 

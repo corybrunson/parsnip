@@ -89,7 +89,7 @@ model_info_table <-
                "ordinal_reg",      "classification",             "polr",       "ordered",
                "ordinal_reg",      "classification",       "ordinalNet",       "ordered",
                "ordinal_reg",      "classification",             "vglm",       "ordered",
-               "ordinal_reg",      "classification",             "vgam",       "ordered",
+          "gen_additive_mod",      "classification",             "vgam",       "ordered",
                "rand_forest",      "classification",    "ordinalForest",       "ordered",
                 "linear_reg", "quantile regression",         "quantreg",              NA,
                "rand_forest", "quantile regression",              "grf",              NA,

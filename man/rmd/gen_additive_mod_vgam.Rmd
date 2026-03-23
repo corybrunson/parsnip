@@ -1,0 +1,88 @@
+```{r, child="aaa.Rmd", include=FALSE}
+```
+
+`r descr_models("gen_additive_mod", "vgam")`
+
+## Tuning Parameters
+
+```{r vgam-param-info, echo=FALSE}
+defaults <- 
+  tibble::tibble(parsnip = c("select_features", "adjust_deg_free"),
+                 default = c("FALSE", "1.0"))
+
+param <-
+  gen_additive_mod() |>
+  set_engine("vgam") |>
+  set_mode("classification") |>
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r, vgam-param-list, echo=FALSE, results='asis'}
+param$item
+```
+
+## Translation from parsnip to the original package
+
+`r uses_extension("gen_additive_mod", "vgam", "classification")`
+
+```{r vgam-oreg}
+library(ordered)
+
+gen_additive_mod() %>% 
+  set_engine("vgam") %>% 
+  set_mode("classification") %>% 
+  translate()
+```
+
+## Model fitting with smoothers
+
+```{r}
+#| child: template-uses-smooth-terms.Rmd
+```
+
+```{r}
+#| include: false
+library(VGAM)
+```
+```{r}
+library(VGAM)
+data("income", package = "ordinal")
+gen_additive_mod() |> 
+  set_engine("vgam") |> 
+  set_mode("classification") |> 
+  fit(income ~ year + s(pct, df = 2), data = income)
+
+spec <- 
+  gen_additive_mod() |> 
+  set_engine("vgam") |> 
+  set_mode("classification")
+
+workflow() |> 
+  add_model(spec, formula = income ~ year + s(pct, df = 2)) |> 
+  add_formula(income ~ year + pct) |> 
+  # FIXME
+  fit(data = income) |> 
+  extract_fit_engine()
+```
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-makes-dummies.Rmd
+```
+
+## Case weights
+
+```{r}
+#| child: template-uses-case-weights.Rmd
+```
+
+_However_, the documentation in [VGAM::vglm()] (which applies also to [VGAM::vgam()]) notes that matrix of case weights can be passed so that different classes have different weights. tidymodels assumes vector of a weights; a matrix cannot be passed in. 
+
+Also, the engine documentation notes that: "The values of `weights` must be positive; try setting a very small value such as `1.0e-8` to effectively delete an observation."
+
+## References
+
+- Yee T. 2010. The VGAM Package for Categorical Data Analysis. _Journal of Statistical Software_ 32(10):1--34. \doi{10.18637/jss.v032.i10}.
