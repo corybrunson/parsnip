@@ -27,7 +27,7 @@ param$item
 
 `r uses_extension("gen_additive_mod", "vgam", "classification")`
 
-```{r vgam-oreg}
+```{r vgam-gam}
 library(ordered)
 
 gen_additive_mod() %>% 
