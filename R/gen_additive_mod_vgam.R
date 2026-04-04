@@ -1,4 +1,4 @@
-#' Ordinal regression via vector GAMs
+#' Ordinal generalized additive model via vector GAMs
 #'
 #' [VGAM::vgam()] fits vector generalized additive models, which specialize to
 #' several families of ordinal regression models.

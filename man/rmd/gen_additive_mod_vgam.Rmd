@@ -5,23 +5,10 @@
 
 ## Tuning Parameters
 
-```{r vgam-param-info, echo=FALSE}
-defaults <- 
-  tibble::tibble(parsnip = c("select_features", "adjust_deg_free"),
-                 default = c("FALSE", "1.0"))
+There are no main tuning parameters for this model. Two relevant engine parameters are:
 
-param <-
-  gen_additive_mod() |>
-  set_engine("vgam") |>
-  set_mode("classification") |>
-  make_parameter_list(defaults)
-```
-
-This model has `r nrow(param)` tuning parameters:
-
-```{r, vgam-param-list, echo=FALSE, results='asis'}
-param$item
-```
+ - `link`: the link function such as `logistic`, `probit`, `loglog`, `cloglog`, or `cauchit`. 
+ - `family`: the function to contrast levels such as `cumulative_link`, `adjacent_categories`, `continuation_ratio`, or `stopping_ratio`
 
 ## Translation from parsnip to the original package
 
@@ -45,14 +32,15 @@ gen_additive_mod() %>%
 ```{r}
 #| include: false
 library(VGAM)
-```
-```{r}
-library(VGAM)
-data("income", package = "ordinal")
-gen_additive_mod() |> 
+# Make number of cylinders an ordered factor
+ord_cars <- mtcars[, -1]
+ord_cars$cyl <- as.ordered(ord_cars$cyl)
+
+car_fit <- 
+  gen_additive_mod() |> 
   set_engine("vgam") |> 
   set_mode("classification") |> 
-  fit(income ~ year + s(pct, df = 2), data = income)
+  fit(cyl ~ disp + s(wt) + am, data = ord_cars)
 
 spec <- 
   gen_additive_mod() |> 
@@ -60,10 +48,9 @@ spec <-
   set_mode("classification")
 
 workflow() |> 
-  add_model(spec, formula = income ~ year + s(pct, df = 2)) |> 
-  add_formula(income ~ year + pct) |> 
-  # FIXME
-  fit(data = income) |> 
+  add_model(spec, formula = cyl ~ disp + s(wt) + am) |> 
+  add_formula(cyl ~ disp + wt + am) |> 
+  fit(data = ord_cars) |> 
   extract_fit_engine()
 ```
 
@@ -82,6 +69,17 @@ workflow() |>
 _However_, the documentation in [VGAM::vglm()] (which applies also to [VGAM::vgam()]) notes that matrix of case weights can be passed so that different classes have different weights. tidymodels assumes vector of a weights; a matrix cannot be passed in. 
 
 Also, the engine documentation notes that: "The values of `weights` must be positive; try setting a very small value such as `1.0e-8` to effectively delete an observation."
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+
+parsnip:::get_from_env("gen_additive_mod_predict") |>
+  dplyr::filter(engine == "vgam") |> 
+  dplyr::select(mode, type)
+
+```
 
 ## References
 
