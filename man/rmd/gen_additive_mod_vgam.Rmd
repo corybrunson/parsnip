@@ -14,7 +14,7 @@ There are no main tuning parameters for this model. Two relevant engine paramete
 
 `r uses_extension("gen_additive_mod", "vgam", "classification")`
 
-```{r vgam-oreg}
+```{r vgam-gam}
 library(ordered)
 
 gen_additive_mod() %>% 
@@ -23,15 +23,16 @@ gen_additive_mod() %>%
   translate()
 ```
 
-
-## Model fitting
-
-This model should be used with a model formula so that smooth terms can be specified. For example:
+## Model fitting with smoothers
 
 ```{r}
-#| eval: false
+#| child: template-uses-smooth-terms.Rmd
+```
+
+```{r}
+#| include: false
 library(VGAM)
-# Make number of cylinders and ordered factor
+# Make number of cylinders an ordered factor
 ord_cars <- mtcars[, -1]
 ord_cars$cyl <- as.ordered(ord_cars$cyl)
 
@@ -40,14 +41,7 @@ car_fit <-
   set_engine("vgam") |> 
   set_mode("classification") |> 
   fit(cyl ~ disp + s(wt) + am, data = ord_cars)
-```
 
-The smoothness of the terms will need to be manually specified (e.g., using `s(x, df = 10)`) in the formula. 
-
-When using a workflow, pass the _model formula_ to [workflows::add_model()]'s `formula` argument, and a simplified _preprocessing formula_ elsewhere.
-
-```{r}
-#| eval: false
 spec <- 
   gen_additive_mod() |> 
   set_engine("vgam") |> 
@@ -60,8 +54,6 @@ workflow() |>
   extract_fit_engine()
 ```
 
-To learn more about the differences between these formulas, see [`?model_formula`][parsnip::model_formula].
-
 ## Preprocessing requirements
 
 ```{r}
@@ -73,6 +65,10 @@ To learn more about the differences between these formulas, see [`?model_formula
 ```{r}
 #| child: template-uses-case-weights.Rmd
 ```
+
+_However_, the documentation in [VGAM::vglm()] (which applies also to [VGAM::vgam()]) notes that matrix of case weights can be passed so that different classes have different weights. tidymodels assumes vector of a weights; a matrix cannot be passed in. 
+
+Also, the engine documentation notes that: "The values of `weights` must be positive; try setting a very small value such as `1.0e-8` to effectively delete an observation."
 
 ## Prediction types
 

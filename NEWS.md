@@ -16,6 +16,8 @@ The changes in this section are discussed in #1298.
   * `"rpartScore"` for `rpartScore::rpartScore()` under `decision_tree()`
   * `"ordinalForest"` for `ordinalForest::ordfor()` under `rand_forest()`
 
+* The new engine `"vgam"` for `VGAM::*()` is documented for generalized additive models under `gen_additive_mod()`
+
 * Engine arguments for the new ordinal prediction engines are documented.
 
 * Ordinal prediction tools are coordinated with new parameter tuners in dials and engines in ordered.

@@ -2,11 +2,17 @@
 % Please edit documentation in R/gen_additive_mod_vgam.R
 \name{details_gen_additive_mod_vgam}
 \alias{details_gen_additive_mod_vgam}
+<<<<<<< HEAD
+\title{Ordinal regression via vector GAMs}
+=======
 \title{Ordinal generalized additive model via vector GAMs}
+>>>>>>> ordered
 \description{
 \code{\link[VGAM:vgam]{VGAM::vgam()}} fits vector generalized additive models, which specialize to
 several families of ordinal regression models.
 }
+<<<<<<< HEAD
+=======
 \details{
 For this engine, there is a single mode: classification
 \subsection{Tuning Parameters}{
@@ -121,4 +127,5 @@ of Statistical Software} 32(10):1–34. .
 }
 }
 }
+>>>>>>> ordered
 \keyword{internal}
