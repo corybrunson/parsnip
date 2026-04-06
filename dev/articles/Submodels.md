@@ -34,11 +34,11 @@ library(tidymodels)
 
     ## ✔ broom        1.0.12     ✔ rsample      1.3.2 
     ## ✔ dials        1.4.2      ✔ tailor       0.1.0 
-    ## ✔ dplyr        1.2.0      ✔ tidyr        1.3.2 
+    ## ✔ dplyr        1.2.1      ✔ tidyr        1.3.2 
     ## ✔ infer        1.1.0      ✔ tune         2.0.1 
     ## ✔ modeldata    1.5.1      ✔ workflows    1.3.0 
     ## ✔ purrr        1.2.1      ✔ workflowsets 1.1.1 
-    ## ✔ recipes      1.3.1      ✔ yardstick    1.3.2
+    ## ✔ recipes      1.3.2      ✔ yardstick    1.3.2
 
     ## ── Conflicts ──────────────────────────────── tidymodels_conflicts() ──
     ## ✖ purrr::discard() masks scales::discard()
