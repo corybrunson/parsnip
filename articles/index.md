@@ -1,0 +1,21 @@
+# Articles
+
+### All vignettes
+
+- [Dev
+  checklists](https://parsnip.tidymodels.org/articles/checklists.md):
+
+- [Introduction to
+  parsnip](https://parsnip.tidymodels.org/articles/parsnip.md):
+
+  The goal of parsnip is to provide a tidy, unified interface to models
+  to avoid getting bogged down in the syntactical minutiae of the
+  underlying software.
+
+- [Evaluating submodels with the same model
+  object](https://parsnip.tidymodels.org/articles/Submodels.md):
+
+  You can use
+  [`multi_predict()`](https://parsnip.tidymodels.org/reference/multi_predict.md)
+  to evaluate submodels with the same model object and avoid having to
+  fit any of the submodels.
