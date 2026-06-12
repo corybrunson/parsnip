@@ -276,9 +276,10 @@ check_pred_type <- function(object, type, ..., call = rlang::caller_env()) {
         call = call
       )
     },
-    "linear_pred" = if (object$spec$mode != "censored regression") {
+    "linear_pred" = if (object$spec$mode != "censored regression" &&
+                        ! inherits(object$spec, "ordinal_reg")) {
       cli::cli_abort(
-        "For the linear predictor, the object should be a censored regression.",
+        "For the linear predictor, the object should be a censored or ordinal regression.",
         call = call
       )
     }
