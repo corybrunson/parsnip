@@ -2,7 +2,40 @@
 
 ## parsnip (development version)
 
-### updates related to ‘ordered’ extenision package
+- For censored regression models, the censoring weights can now be added
+  to the predictions of survival probability by setting
+  `add_censoring_weights = TRUE` in `predict(type = "survival")`
+  ([\#1371](https://github.com/tidymodels/parsnip/issues/1371)).
+
+## parsnip 1.6.0
+
+CRAN release: 2026-05-14
+
+- [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md),
+  [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md),
+  [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md), and
+  [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
+  gain a new `"keras3"` engine powered by the keras3 package, which
+  supports Keras v3 and its multi-backend design (TensorFlow, JAX,
+  PyTorch)
+  ([\#1243](https://github.com/tidymodels/parsnip/issues/1243)).
+
+## parsnip 1.5.0
+
+CRAN release: 2026-04-09
+
+### Quantile Regression
+
+- Quantile levels are not dropped when a model specification is modified
+  ([\#1304](https://github.com/tidymodels/parsnip/issues/1304))
+
+- xgboost and qrnn engines were added for quantile regression to
+  [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
+  and [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md),
+  respectively.
+  ([\#1321](https://github.com/tidymodels/parsnip/issues/1321))
+
+### Ordinal Regression
 
 The changes in this section are discussed in
 [\#1298](https://github.com/tidymodels/parsnip/issues/1298).
@@ -43,15 +76,37 @@ The changes in this section are discussed in
 - Ordinal prediction tools are coordinated with new parameter tuners in
   dials and engines in ordered.
 
-- `model_info_table` is updated with the above 6 engines in anticipation
-  of submission of ordered to CRAN.
-
-### other updates
+### Bug Fixes
 
 - [`fit()`](https://generics.r-lib.org/reference/fit.html) with a
   formula now reliably drops rows with missing values during internal
   data conversion, regardless of the global `options(na.action = ...)`
   setting ([\#548](https://github.com/tidymodels/parsnip/issues/548)).
+
+- Fixed a bug in random forest fits using the `"aorsf"` engine where the
+  check for `mtry` could not be performed
+  ([\#1276](https://github.com/tidymodels/parsnip/issues/1276))
+
+- [`repair_call()`](https://parsnip.tidymodels.org/dev/reference/repair_call.md)
+  now errors informatively when given an object that is not a fitted
+  parsnip model
+  ([\#598](https://github.com/tidymodels/parsnip/issues/598)).
+
+- Fix bug in predicting class probabilities for multiclass earth models
+  ([\#1334](https://github.com/tidymodels/parsnip/issues/1334))
+
+- [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md)
+  now errors informatively when an invalid engine name is specified for
+  models whose engines all come from extension packages
+  ([\#1110](https://github.com/tidymodels/parsnip/issues/1110)).
+
+- Case weight usage was enabled for the `"nnet"` engines of
+  [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md) and
+  [`bag_mlp()`](https://parsnip.tidymodels.org/dev/reference/bag_mlp.md)
+  as well as for the `"dbarts"` engine of
+  [`bart()`](https://parsnip.tidymodels.org/dev/reference/bart.md).
+
+### Other Updates
 
 - For developers,
   [`format_predictions()`](https://parsnip.tidymodels.org/dev/reference/format-internals.md)
@@ -78,41 +133,9 @@ The changes in this section are discussed in
   custom objective functions and automatic `num_class` handling
   ([\#1275](https://github.com/tidymodels/parsnip/issues/1275)).
 
-- Fixed a bug in random forest fits using the `"aorsf"` engine where the
-  check for `mtry` could not be performed
-  ([\#1276](https://github.com/tidymodels/parsnip/issues/1276))
-
-- [`repair_call()`](https://parsnip.tidymodels.org/dev/reference/repair_call.md)
-  now errors informatively when given an object that is not a fitted
-  parsnip model
-  ([\#598](https://github.com/tidymodels/parsnip/issues/598)).
-
-- Fix bug in predicting class probabilities for multiclass earth models
-  ([\#1334](https://github.com/tidymodels/parsnip/issues/1334))
-
 - The “Fitting and predicting with parsnip” article has moved to
   [tidymodels.org](https://www.tidymodels.org/learn/models/parsnip-predictions/)
   ([\#1324](https://github.com/tidymodels/parsnip/issues/1324)).
-
-- [`set_engine()`](https://parsnip.tidymodels.org/dev/reference/set_engine.md)
-  now errors informatively when an invalid engine name is specified for
-  models whose engines all come from extension packages
-  ([\#1110](https://github.com/tidymodels/parsnip/issues/1110)).
-
-- Quantile levels are not dropped when a model specification is modified
-  ([\#1304](https://github.com/tidymodels/parsnip/issues/1304))
-
-- xgboost and qrnn engines were added for quantile regression to
-  [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
-  and [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md),
-  respectively.
-  ([\#1321](https://github.com/tidymodels/parsnip/issues/1321))
-
-- Case weight usage was enabled for the `"nnet"` engines of
-  [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md) and
-  [`bag_mlp()`](https://parsnip.tidymodels.org/dev/reference/bag_mlp.md)
-  as well as for the `"dbarts"` engine of
-  [`bart()`](https://parsnip.tidymodels.org/dev/reference/bart.md).
 
 - All model details files note whether case weights can be used or not.
 
@@ -512,8 +535,8 @@ time to [`fit()`](https://generics.r-lib.org/reference/fit.html) and
 
 - Implemented a number of optimizations in parsnip’s backend that
   [substantially decrease evaluation
-  time](https://www.simonpcouch.com/blog/speedups-2023/#parsnip) to
-  [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+  time](https://simonpcouch.com/blog/2023-03-24-speedups-2023/index.html#parsnip)
+  to [`fit()`](https://generics.r-lib.org/reference/fit.html) and
   [`predict()`](https://rdrr.io/r/stats/predict.html)
   ([\#901](https://github.com/tidymodels/parsnip/issues/901),
   [\#902](https://github.com/tidymodels/parsnip/issues/902),
