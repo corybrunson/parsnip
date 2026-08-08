@@ -2,6 +2,12 @@
 
 ## parsnip (development version)
 
+- Corrected documentation that referred to
+  [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) as
+  arguments rather than functions in the case weights template
+  ([\#1394](https://github.com/tidymodels/parsnip/issues/1394)).
+
 - Fitting with sparse data now respects the model mode, so loading an
   extension package that registers an engine for a different mode can no
   longer alter sparse data support for the original mode
@@ -11,6 +17,12 @@
   to the predictions of survival probability by setting
   `add_censoring_weights = TRUE` in `predict(type = "survival")`
   ([\#1371](https://github.com/tidymodels/parsnip/issues/1371)).
+
+- [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) have
+  less per-fit overhead, making small or repeated fits (such as during
+  tuning) faster
+  ([\#1071](https://github.com/tidymodels/parsnip/issues/1071)).
 
 - New model specifications
   [`tabular_auto_int()`](https://parsnip.tidymodels.org/dev/reference/tabular_auto_int.md),
