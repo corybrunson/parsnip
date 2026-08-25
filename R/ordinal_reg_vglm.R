@@ -18,13 +18,19 @@ NULL
 # `VGAM::vglm()` and `VGAM::vgam()`. The family helper is also used for the
 # `ordinalNet` engine, which recognizes the same native families. They are used
 # by `translate.ordinal_reg()` and `translate.gen_additive_mod()`.
+#
+# The dials values are inlined rather than taken from `dials::values_*`, which
+# would bake in whatever dials was installed when parsnip was built. A test in
+# test-ordinal_reg.R checks that they stay in sync.
 values_ordinal_link_vglm <- c(
-  dials::values_ordinal_link,
+  # dials::values_ordinal_link
+  c("logistic", "probit", "loglog", "cloglog", "cauchit"),
   c("foldsqrt", "logc", "gord", "pord", "nbord")
 )
 
 values_threshold_structure_vglm <- c(
-  dials::values_threshold_structure,
+  # dials::values_threshold_structure
+  c("flexible", "symmetric_median", "symmetric_zero", "equidistant"),
   "qnorm"
 )
 

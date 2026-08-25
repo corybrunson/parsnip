@@ -64,6 +64,30 @@ test_that("parallel_reg cannot be combined with a nominal engine argument", {
   )
 })
 
+# the dials values used below are inlined in R/ordinal_reg_vglm.R rather than
+# taken from `dials::values_*`, which would bake in whatever dials was installed
+# when parsnip was built
+test_that("inlined ordinal link values stay in sync with dials", {
+  skip_if_not_installed("dials", "1.4.3")
+
+  expect_equal(
+    values_ordinal_link_vglm[seq_along(dials::values_ordinal_link)],
+    dials::values_ordinal_link
+  )
+})
+
+test_that("inlined threshold structure values stay in sync with dials", {
+  # `values_threshold_structure` is newer than parsnip's dials requirement
+  skip_if_not_installed("dials", "1.4.4.9000")
+
+  expect_equal(
+    values_threshold_structure_vglm[
+      seq_along(dials::values_threshold_structure)
+    ],
+    dials::values_threshold_structure
+  )
+})
+
 test_that("VGAM arguments are translated", {
   x <- new_ordinal_translation(
     list(
