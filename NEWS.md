@@ -1,6 +1,6 @@
 # parsnip (development version)
 
-* `ordinal_reg` model arguments `threshold_structure` and `parallel_reg` are introduced to control threshold constraints and the parallel regression assumption. Each can be used by the `clm` and `vglm` engines, while `ordinalNet` also understands `parallel_reg`. Both are also tuned by new dials. (#1393)
+* `ordinal_reg()` gains arguments `threshold_structure` and `parallel_reg` to control threshold constraints and the parallel regression assumption. The `ordinalNet` engine can use `parallel_reg` while the `clm` and `vglm` engines can use both new arguments (#1393).
 
 * The `vgam` engine for `gen_additive_mod` has arguments corresponding to all four `ordinal_reg` model arguments; these are exposed as engine arguments but tuned by the same dials. (#1393)
 
