@@ -23,7 +23,7 @@ clm_formulas <- function(formula, data, call = rlang::caller_env()) {
     1
   }
 
-  nominal <- reformulate(term_labels, env = rlang::f_env(formula))
+  nominal <- stats::reformulate(term_labels, env = rlang::f_env(formula))
 
   list(formula = loc, nominal = nominal)
 }
