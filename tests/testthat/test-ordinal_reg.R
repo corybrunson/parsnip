@@ -16,7 +16,7 @@ test_that("odds_link", {
 test_that("parallel_reg is validated", {
   expect_no_error(check_args(ordinal_reg(parallel_reg = NULL)))
   expect_no_error(check_args(ordinal_reg(parallel_reg = TRUE)))
-  expect_no_error(check_args(ordinal_reg(parallel_reg = FALSE)))
+  expect_no_error(check_args(ordinal_reg(parallel_reg = FALSE, engine = "clm")))
 
   expect_snapshot(error = TRUE, {
     check_args(ordinal_reg(parallel_reg = NA))
