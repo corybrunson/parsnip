@@ -42,20 +42,24 @@ test_that("clm arguments are translated", {
 
   expect_equal(result$method$fit$args$link, "logit")
   expect_equal(result$method$fit$args$threshold, "symmetric2")
-  expect_null(result$method$fit$args$parallel_reg)
-
-  formula <- y ~ `not valid` + log(x)
-  nominal <- rlang::eval_tidy(result$method$fit$args$nominal)
-  expect_equal(
-    rlang::f_rhs(nominal),
-    rlang::expr(`not valid` + log(x))
-  )
-  expect_identical(rlang::f_env(nominal), rlang::f_env(formula))
-
-  x$method$fit$args$parallel_reg <- rlang::quo(TRUE)
-  x$method$fit$args$nominal <- rlang::quo(unused)
-  result <- translate_ordinal_reg_clm(x)
+  # `clm_train()` turns `parallel_reg` into `nominal` at fit time, once the data
+  # is known, so translation leaves both alone
+  expect_equal(rlang::eval_tidy(result$method$fit$args$parallel_reg), FALSE)
   expect_null(result$method$fit$args$nominal)
+})
+
+test_that("parallel_reg cannot be combined with a nominal engine argument", {
+  expect_snapshot(error = TRUE, {
+    ordinal_reg(parallel_reg = FALSE) |>
+      set_engine("clm", nominal = ~x) |>
+      check_args()
+  })
+
+  expect_no_error(
+    ordinal_reg(parallel_reg = NULL) |>
+      set_engine("clm", nominal = ~x) |>
+      check_args(spec)
+  )
 })
 
 test_that("VGAM arguments are translated", {

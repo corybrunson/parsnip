@@ -30,6 +30,15 @@
       Error:
       ! `parallel_reg` must be `TRUE`, `FALSE`, or `NULL`, not the number 1.
 
+# parallel_reg cannot be combined with a nominal engine argument
+
+    Code
+      check_args(set_engine(ordinal_reg(parallel_reg = FALSE), "clm", nominal = ~x))
+    Condition
+      Error:
+      ! `parallel_reg` and the `nominal` engine argument cannot both be used.
+      i `nominal` relaxes the parallel regression assumption for the predictors it names; omit `parallel_reg` to use it.
+
 # VGAM arguments are translated
 
     Code

@@ -157,6 +157,9 @@ check_args.ordinal_reg <- function(object, call = rlang::caller_env()) {
   # engine compatibility checks
   check_ordinal_reg_odds_link(object, object$engine, call = call)
   check_ordinal_reg_parallel(object, object$engine, call = call)
+  if (object$engine == "clm") {
+    check_ordinal_reg_nominal(object, call = call)
+  }
 
   invisible(object)
 }
@@ -211,6 +214,29 @@ check_ordinal_reg_parallel <- function(x, engine, call = rlang::caller_env()) {
   invisible(NULL)
 }
 
+check_ordinal_reg_nominal <- function(x, call = rlang::caller_env()) {
+  # `nominal` is `clm()`'s own way of relaxing the assumption for a subset of
+  # predictors, so it can only be used when `parallel_reg` is left unset
+  if (is.null(x$eng_args$nominal)) {
+    return(invisible(NULL))
+  }
+
+  parallel_reg <- rlang::eval_tidy(x$args$parallel_reg)
+  if (!is.null(parallel_reg)) {
+    cli::cli_abort(
+      c(
+        "{.arg parallel_reg} and the {.arg nominal} engine argument cannot both
+         be used.",
+        "i" = "{.arg nominal} relaxes the parallel regression assumption for
+         the predictors it names; omit {.arg parallel_reg} to use it."
+      ),
+      call = call
+    )
+  }
+
+  invisible(NULL)
+}
+
 check_ordinal_reg_odds_link <- function(x, engine, call = rlang::caller_env()) {
   if (engine %in% c("polr", "clm", "lrm", "orm")) {
     oddslink <- rlang::eval_tidy(x$args$odds_link)
@@ -247,17 +273,9 @@ translate_ordinal_reg_clm <- function(x) {
     )
   }
 
-  # translate `parallel_reg` to the `nominal` formula accepted by `clm()`
-  # NB: The formula is constructed at fit time, when the model formula is
-  # available, rather than at translation time. `formula` is symbolized from
-  # a string to prevent a global variable note.
-  parallel_arg <- rlang::eval_tidy(x$method$fit$args$parallel_reg)
-  if (isFALSE(parallel_arg)) {
-    x$method$fit$args$nominal <- rlang::expr((!!rlang::sym("formula"))[-2L])
-  } else if (isTRUE(parallel_arg)) {
-    x$method$fit$args$nominal <- NULL
-  }
-  x$method$fit$args$parallel_reg <- NULL
+  # `parallel_reg` is passed on to `clm_train()`, which turns it into the
+  # `nominal` formula accepted by `clm()`. That can only happen at fit time,
+  # once the data is available to interpret the model formula.
 
   x
 }
