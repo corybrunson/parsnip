@@ -2,7 +2,7 @@
 
 test_that("testing", {
   # Testing is done in {ordered}
-  # https://github.com/tidymodels/ordered
+  # https://github.com/corybrunson/ordered
 
   expect_true(TRUE)
 })
