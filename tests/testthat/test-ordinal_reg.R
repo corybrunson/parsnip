@@ -10,7 +10,9 @@ test_that("testing", {
 test_that("odds_link", {
   # a legitimate odds link function not recognized by {dials}
   tidy_spec <- ordinal_reg(engine = "polr", odds_link = "adjacent_categories")
-  expect_snapshot(. <- translate(tidy_spec))
+  expect_snapshot(error = TRUE, {
+    check_args(tidy_spec)
+  })
 })
 
 test_that("parallel_reg is validated", {

@@ -1,10 +1,11 @@
 # odds_link
 
     Code
-      . <- translate(tidy_spec)
+      check_args(tidy_spec)
     Condition
-      Warning:
-      ! The "polr" engine uses the cumulative link odds link; `odds_link` will be ignored.
+      Error:
+      ! The "polr" engine supports only the cumulative odds link.
+      i Use the "vglm" or "ordinalNet" engine for alternative odds links.
 
 # parallel_reg is validated
 
