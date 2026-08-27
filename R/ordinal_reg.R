@@ -164,35 +164,6 @@ check_args.ordinal_reg <- function(object, call = rlang::caller_env()) {
   invisible(object)
 }
 
-# ------------------------------------------------------------------------------
-
-#' @export
-translate.ordinal_reg <- function(
-  x,
-  engine = x$engine,
-  ...,
-  call = rlang::caller_env()
-) {
-  x <- translate.default(x, engine, ...)
-
-  if (engine == "clm") {
-    x <- translate_ordinal_reg_clm(x)
-  }
-
-  if (engine == "vglm") {
-    x <- translate_ordinal_reg_vglm(x, call = call)
-  }
-
-  if (engine == "ordinalNet") {
-    x <- translate_ordinal_reg_ordinalNet(x, call = call)
-  }
-
-  if (engine == "glmnetcr") {
-    x <- translate_ordinal_reg_glmnetcr(x, call = call)
-  }
-
-  x
-}
 
 check_ordinal_reg_parallel <- function(x, engine, call = rlang::caller_env()) {
   # reject `parallel_reg` for engines that don't support assumption violations
@@ -255,6 +226,36 @@ check_ordinal_reg_odds_link <- function(x, engine, call = rlang::caller_env()) {
   invisible(NULL)
 }
 
+# ------------------------------------------------------------------------------
+
+#' @export
+translate.ordinal_reg <- function(
+  x,
+  engine = x$engine,
+  ...,
+  call = rlang::caller_env()
+) {
+  x <- translate.default(x, engine, ...)
+
+  if (engine == "clm") {
+    x <- translate_ordinal_reg_clm(x)
+  }
+
+  if (engine == "vglm") {
+    x <- translate_ordinal_reg_vglm(x, call = call)
+  }
+
+  if (engine == "ordinalNet") {
+    x <- translate_ordinal_reg_ordinalNet(x, call = call)
+  }
+
+  if (engine == "glmnetcr") {
+    x <- translate_ordinal_reg_glmnetcr(x, call = call)
+  }
+
+  x
+}
+
 translate_ordinal_reg_clm <- function(x) {
   link_arg <- rlang::eval_tidy(x$method$fit$args$link)
   if (!is.null(link_arg) && link_arg == "logistic") {
@@ -280,28 +281,6 @@ translate_ordinal_reg_clm <- function(x) {
   x
 }
 
-match_ordinal_family <- function(family, call = rlang::caller_env()) {
-  if (!is.character(family)) {
-    return(family)
-  }
-  check_string(family, arg = "odds_link", call = call)
-  if (family %in% c("cumulative", "acat", "cratio", "sratio")) {
-    return(family)
-  }
-  family <- rlang::arg_match0(
-    family,
-    dials::values_odds_link,
-    arg_nm = "odds_link",
-    error_call = call
-  )
-  switch(
-    family,
-    cumulative_link = "cumulative",
-    adjacent_categories = "acat",
-    continuation_ratio = "cratio",
-    stopping_ratio = "sratio"
-  )
-}
 
 translate_ordinal_reg_vglm <- function(x, call = rlang::caller_env()) {
   x$method$fit$args <- translate_ordinal_vgam_args(
@@ -363,6 +342,29 @@ translate_ordinal_reg_ordinalNet <- function(x, call = rlang::caller_env()) {
   x$args$penalty <- rlang::eval_tidy(x$args$penalty)
 
   x
+}
+
+match_ordinal_family <- function(family, call = rlang::caller_env()) {
+  if (!is.character(family)) {
+    return(family)
+  }
+  check_string(family, arg = "odds_link", call = call)
+  if (family %in% c("cumulative", "acat", "cratio", "sratio")) {
+    return(family)
+  }
+  family <- rlang::arg_match0(
+    family,
+    dials::values_odds_link,
+    arg_nm = "odds_link",
+    error_call = call
+  )
+  switch(
+    family,
+    cumulative_link = "cumulative",
+    adjacent_categories = "acat",
+    continuation_ratio = "cratio",
+    stopping_ratio = "sratio"
+  )
 }
 
 translate_ordinal_reg_glmnetcr <- function(x, call = rlang::caller_env()) {
