@@ -9,10 +9,10 @@
   - `mixture` (`ordinalNet`, `glmnetcr`)
 
 * The `vgam` engine for `gen_additive_mod` has arguments corresponding to all four `ordinal_reg()`-specific model arguments; these are exposed as engine arguments but tuned by the same dials (#1393):
-  - `link` (`dials::ordinal_link`)
-  - `family` (`dials::odds_link`)
-  - `Thresh` (`dials::threshold_structure`)
-  - `parallel` (`dials::parallel_reg`)
+  - `link` (`dials::ordinal_link()`)
+  - `family` (`dials::odds_link()`)
+  - `Thresh` (`dials::threshold_structure()`)
+  - `parallel` (`dials::parallel_reg()`)
 
 * `null_model()` now supports quantile regression mode, where fitting computes the requested empirical quantiles of the outcome.
 
