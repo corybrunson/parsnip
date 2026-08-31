@@ -158,7 +158,7 @@ check_args.ordinal_reg <- function(object, call = rlang::caller_env()) {
   check_ordinal_reg_odds_link(object, object$engine, call = call)
   check_ordinal_reg_parallel(object, object$engine, call = call)
   if (object$engine == "clm") {
-    check_ordinal_reg_nominal(object, call = call)
+    check_clm_nominal(object, call = call)
   }
 
   invisible(object)
@@ -185,7 +185,7 @@ check_ordinal_reg_parallel <- function(x, engine, call = rlang::caller_env()) {
   invisible(NULL)
 }
 
-check_ordinal_reg_nominal <- function(x, call = rlang::caller_env()) {
+check_clm_nominal <- function(x, call = rlang::caller_env()) {
   # `nominal` is `clm()`'s own way of relaxing the assumption for a subset of
   # predictors, so it can only be used when `parallel_reg` is left unset
   if (is.null(x$eng_args$nominal)) {
