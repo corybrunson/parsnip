@@ -31,25 +31,6 @@ test_that("parallel_reg is validated", {
   })
 })
 
-test_that("clm arguments are translated", {
-  x <- new_ordinal_translation(
-    list(
-      link = rlang::quo("logistic"),
-      threshold = rlang::quo("symmetric_zero"),
-      parallel_reg = rlang::quo(FALSE)
-    )
-  )
-
-  result <- translate_ordinal_reg_clm(x)
-
-  expect_equal(result$method$fit$args$link, "logit")
-  expect_equal(result$method$fit$args$threshold, "symmetric2")
-  # `clm_train()` turns `parallel_reg` into `nominal` at fit time, once the data
-  # is known, so translation leaves both alone
-  expect_equal(rlang::eval_tidy(result$method$fit$args$parallel_reg), FALSE)
-  expect_null(result$method$fit$args$nominal)
-})
-
 test_that("parallel_reg cannot be combined with a nominal engine argument", {
   expect_snapshot(error = TRUE, {
     ordinal_reg(parallel_reg = FALSE) |>

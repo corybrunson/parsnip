@@ -237,10 +237,6 @@ translate.ordinal_reg <- function(
 ) {
   x <- translate.default(x, engine, ...)
 
-  if (engine == "clm") {
-    x <- translate_ordinal_reg_clm(x)
-  }
-
   if (engine == "vglm") {
     x <- translate_ordinal_reg_vglm(x, call = call)
   }
@@ -255,32 +251,6 @@ translate.ordinal_reg <- function(
 
   x
 }
-
-translate_ordinal_reg_clm <- function(x) {
-  link_arg <- rlang::eval_tidy(x$method$fit$args$link)
-  if (!is.null(link_arg) && link_arg == "logistic") {
-    x$method$fit$args$link <- "logit"
-  }
-
-  thresh_arg <- rlang::eval_tidy(x$method$fit$args$threshold)
-  if (!is.null(thresh_arg)) {
-    x$method$fit$args$threshold <- switch(
-      thresh_arg,
-      flexible = "flexible",
-      symmetric_median = "symmetric",
-      symmetric_zero = "symmetric2",
-      equidistant = "equidistant",
-      thresh_arg
-    )
-  }
-
-  # `parallel_reg` is passed on to `clm_train()`, which turns it into the
-  # `nominal` formula accepted by `clm()`. That can only happen at fit time,
-  # once the data is available to interpret the model formula.
-
-  x
-}
-
 
 translate_ordinal_reg_vglm <- function(x, call = rlang::caller_env()) {
   x$method$fit$args <- translate_ordinal_vgam_args(
