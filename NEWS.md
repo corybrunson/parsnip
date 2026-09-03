@@ -8,6 +8,8 @@
   - `penalty` (`lrm`, `orm`, `ordinalNet`, `glmnetcr`)
   - `mixture` (`ordinalNet`, `glmnetcr`)
 
+* `ordinal_reg()` argument value translation has been moved from the `translate()` method in parsnip to engine wrappers in ordered, with the exception of penalty path assembly for `ordinalNet` and `glmnetcr`.
+
 * The `vgam` engine for `gen_additive_mod` has arguments corresponding to all four `ordinal_reg()`-specific model arguments; these are exposed as engine arguments but tuned by the same dials (#1393):
   - `link` (`dials::ordinal_link()`)
   - `family` (`dials::odds_link()`)

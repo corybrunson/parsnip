@@ -237,14 +237,10 @@ translate.ordinal_reg <- function(
 ) {
   x <- translate.default(x, engine, ...)
 
-  if (engine == "vglm") {
-    x <- translate_ordinal_reg_vglm(x, call = call)
-  }
-
+  # penalty path assembly
   if (engine == "ordinalNet") {
     x <- translate_ordinal_reg_ordinalNet(x, call = call)
   }
-
   if (engine == "glmnetcr") {
     x <- translate_ordinal_reg_glmnetcr(x, call = call)
   }
@@ -252,36 +248,7 @@ translate.ordinal_reg <- function(
   x
 }
 
-translate_ordinal_reg_vglm <- function(x, call = rlang::caller_env()) {
-  x$method$fit$args <- translate_ordinal_vgam_args(
-    x$method$fit$args,
-    call = call
-  )
-
-  x
-}
-
 translate_ordinal_reg_ordinalNet <- function(x, call = rlang::caller_env()) {
-  link_arg <- rlang::eval_tidy(x$method$fit$args$link)
-  if (!is.null(link_arg)) {
-    x$method$fit$args$link <- match_ordinal_link_ordinalNet(
-      link_arg,
-      call = call
-    )
-  }
-
-  family_arg <- rlang::eval_tidy(x$method$fit$args$family)
-  if (!is.null(family_arg)) {
-    x$method$fit$args$family <- match_ordinal_family(family_arg, call = call)
-  }
-
-  parallel_arg <- rlang::eval_tidy(x$method$fit$args$parallel_reg)
-  if (isFALSE(parallel_arg)) {
-    x$method$fit$args$parallelTerms <- FALSE
-    x$method$fit$args$nonparallelTerms <- TRUE
-  }
-  x$method$fit$args$parallel_reg <- NULL
-
   check_ordinal_reg_penalty(x$args$penalty, "ordinalNet", call = call)
 
   # adapted from `set_glmnet_penalty_path()`
@@ -312,29 +279,6 @@ translate_ordinal_reg_ordinalNet <- function(x, call = rlang::caller_env()) {
   x$args$penalty <- rlang::eval_tidy(x$args$penalty)
 
   x
-}
-
-match_ordinal_family <- function(family, call = rlang::caller_env()) {
-  if (!is.character(family)) {
-    return(family)
-  }
-  check_string(family, arg = "odds_link", call = call)
-  if (family %in% c("cumulative", "acat", "cratio", "sratio")) {
-    return(family)
-  }
-  family <- rlang::arg_match0(
-    family,
-    dials::values_odds_link,
-    arg_nm = "odds_link",
-    error_call = call
-  )
-  switch(
-    family,
-    cumulative_link = "cumulative",
-    adjacent_categories = "acat",
-    continuation_ratio = "cratio",
-    stopping_ratio = "sratio"
-  )
 }
 
 translate_ordinal_reg_glmnetcr <- function(x, call = rlang::caller_env()) {

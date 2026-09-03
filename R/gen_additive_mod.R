@@ -93,13 +93,6 @@ translate.gen_additive_mod <- function(
   }
   x <- translate.default(x, engine, ...)
 
-  if (engine == "vgam") {
-    x$method$fit$args <- translate_ordinal_vgam_args(
-      x$method$fit$args,
-      call = call
-    )
-  }
-
   x
 }
 

@@ -40,51 +40,6 @@
       ! `parallel_reg` and the `nominal` engine argument cannot both be used.
       i `nominal` relaxes the parallel regression assumption for the predictors it names; omit `parallel_reg` to use it.
 
-# VGAM arguments are translated
-
-    Code
-      match_ordinal_link_vglm("loglog")
-    Condition
-      Error:
-      ! The VGAM engines do not support the log-log ordinal link.
-      i See `?VGAM::Links` for provided link functions.
-
----
-
-    Code
-      translate_ordinal_vgam_args(list(link = rlang::quo("logistic"), family = rlang::quo(
-        "adjacent_categories"), Thresh = NULL))
-    Condition
-      Error:
-      ! The "adjacent_categories" family is not compatible with the "logitlink" link function.
-      i Use "cauchitlink" or "identitylink" instead.
-
-# parameter values are matched against the model argument
-
-    Code
-      match_ordinal_link_vglm("logisitc")
-    Condition
-      Error:
-      ! `ordinal_link` must be one of "logistic", "probit", "loglog", "cloglog", "cauchit", "foldsqrt", "logc", "gord", "pord", or "nbord", not "logisitc".
-      i Did you mean "logistic"?
-
----
-
-    Code
-      match_ordinal_family("cumu")
-    Condition
-      Error:
-      ! `odds_link` must be one of "cumulative_link", "adjacent_categories", "continuation_ratio", or "stopping_ratio", not "cumu".
-      i Did you mean "cumulative_link"?
-
----
-
-    Code
-      match_threshold_structure_vglm(c("flexible", "equidistant"))
-    Condition
-      Error:
-      ! `threshold_structure` must be a single string, not a character vector.
-
 # unsupported non-parallel models give engine guidance
 
     Code
