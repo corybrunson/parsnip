@@ -285,6 +285,9 @@ check_penalty_path <- function(
       call = call
     )
   }
+  # Since the `fit` information is gone for the penalty, we need to have an
+  # evaluated value for the parameter.
+  x$args$penalty <- rlang::eval_tidy(x$args$penalty)
 
   invisible(NULL)
 }
@@ -299,5 +302,5 @@ set_penalty_path <- function(x, penalty_arg) {
     x$method$fit$args[[penalty_arg]] <- NULL
   }
 
-  x
+  invisible(NULL)
 }
