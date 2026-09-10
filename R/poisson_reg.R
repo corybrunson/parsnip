@@ -93,7 +93,7 @@ translate.poisson_reg <- function(x, engine = x$engine, ...) {
   if (engine == "glmnet") {
     # See https://parsnip.tidymodels.org/reference/glmnet-details.html
     .check_glmnet_penalty_fit(x, engine)
-    x <- set_glmnet_penalty_path(x, "penalty")
+    x <- set_glmnet_penalty_path(x, "lambda")
     # Since the `fit` information is gone for the penalty, we need to have an
     # evaluated value for the parameter.
     x$args$penalty <- rlang::eval_tidy(x$args$penalty)
