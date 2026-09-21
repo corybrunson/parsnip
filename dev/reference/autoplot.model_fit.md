@@ -22,7 +22,7 @@ autoplot(object, ..., min_penalty = 0, best_penalty = NULL, top_n = 3L)
 - ...:
 
   For `autoplot.glmnet()`, options to pass to
-  [`ggrepel::geom_label_repel()`](https://ggrepel.slowkow.com/reference/geom_text_repel.html).
+  [`ggrepel::geom_label_repel()`](https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html).
   Otherwise, this argument is ignored.
 
 - min_penalty:
