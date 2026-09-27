@@ -13,7 +13,7 @@ data portion of the call will not correspond to the original data."><meta proper
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.6.0.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.6.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,7 +99,7 @@ functions and methods.</p>
 <span class="r-in"><span><span class="co"># In this call, note that `data` is not `mtcars` and the `model = ~TRUE`</span></span></span>
 <span class="r-in"><span><span class="co"># indicates that the `model` argument is an rlang quosure.</span></span></span>
 <span class="r-in"><span><span class="va">fitted_model</span><span class="op">$</span><span class="va">fit</span><span class="op">$</span><span class="va">call</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> stats::lm(formula = mpg ~ ., data = data, model = ~TRUE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> stats::lm(formula = mpg ~ ., data = data, model = TRUE)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># All better:</span></span></span>
 <span class="r-in"><span><span class="fu">repair_call</span><span class="op">(</span><span class="va">fitted_model</span>, <span class="va">mtcars</span><span class="op">)</span><span class="op">$</span><span class="va">fit</span><span class="op">$</span><span class="va">call</span></span></span>
@@ -108,7 +108,7 @@ functions and methods.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mpg ~ .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55a4908290f8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d65f409b88&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mtcars</span>

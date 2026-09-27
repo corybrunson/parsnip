@@ -49,7 +49,7 @@ fitted_model <-
 # In this call, note that `data` is not `mtcars` and the `model = ~TRUE`
 # indicates that the `model` argument is an rlang quosure.
 fitted_model$fit$call
-#> stats::lm(formula = mpg ~ ., data = data, model = ~TRUE)
+#> stats::lm(formula = mpg ~ ., data = data, model = TRUE)
 
 # All better:
 repair_call(fitted_model, mtcars)$fit$call
@@ -58,7 +58,7 @@ repair_call(fitted_model, mtcars)$fit$call
 #> 
 #> $formula
 #> mpg ~ .
-#> <environment: 0x55a4908290f8>
+#> <environment: 0x55d65f409b88>
 #> 
 #> $data
 #> mtcars

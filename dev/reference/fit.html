@@ -11,7 +11,7 @@ routine."><meta property="og:image" content="https://parsnip.tidymodels.org/logo
 
     <a class="navbar-brand me-2" href="../index.html">parsnip</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.6.0.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.6.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,9 +106,9 @@ examples.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Not currently used; values passed here will be
-ignored. Other options required to fit the model should be
-passed using <code><a href="set_engine.html">set_engine()</a></code>.</p></dd>
+<dd><p>Must be empty; an error is raised if any arguments are
+passed here. Options required to fit the model should be passed to
+<code><a href="set_engine.html">set_engine()</a></code>, and case weights to the <code>case_weights</code> argument.</p></dd>
 
 
 <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
