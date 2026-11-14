@@ -2,6 +2,52 @@
 
 ## parsnip (development version)
 
+- The tunable parameters for engines registered in extension packages
+  (lightgbm, catboost, partykit, aorsf, and flexsurvspline) are no
+  longer hard-coded in parsnip’s
+  [`tunable()`](https://generics.r-lib.org/reference/tunable.html)
+  methods; those packages now register them with
+  [`set_model_arg()`](https://parsnip.tidymodels.org/dev/reference/set_new_model.md).
+
+- The brulee engines for
+  [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md),
+  [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md),
+  [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md),
+  and [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md) now
+  register their tunable engine arguments with
+  [`set_model_arg()`](https://parsnip.tidymodels.org/dev/reference/set_new_model.md)
+  instead of overriding
+  [`tunable()`](https://generics.r-lib.org/reference/tunable.html). As a
+  result, the learning rate scheduler arguments `initial`, `largest`,
+  `reduction`, `steps`, `step_size`, and `decay` are now tunable for the
+  [`mlp()`](https://parsnip.tidymodels.org/dev/reference/mlp.md)
+  engines, and `rate_schedule` is no longer listed for
+  [`linear_reg()`](https://parsnip.tidymodels.org/dev/reference/linear_reg.md),
+  [`logistic_reg()`](https://parsnip.tidymodels.org/dev/reference/logistic_reg.md),
+  and
+  [`multinom_reg()`](https://parsnip.tidymodels.org/dev/reference/multinom_reg.md)
+  since their brulee fitting functions do not use it.
+
+- [`boost_tree()`](https://parsnip.tidymodels.org/dev/reference/boost_tree.md)
+  gains an `"xgboost3"` engine that passes factor predictors to xgboost
+  as categorical features instead of converting them to indicator
+  variables. It requires xgboost 3.0.0 or later when factor predictors
+  are used.
+
+- [`fit()`](https://generics.r-lib.org/reference/fit.html) and
+  [`fit_xy()`](https://generics.r-lib.org/reference/fit_xy.html) now
+  save a zero-row copy of the training predictors in the `ptype` element
+  of the fitted object’s `preproc` slot.
+  [`predict()`](https://rdrr.io/r/stats/predict.html) uses it to give
+  factor and character columns in new data the levels seen during
+  training; values with novel levels become `NA` with a warning.
+
+- [`multi_predict()`](https://parsnip.tidymodels.org/dev/reference/multi_predict.md)
+  for xgboost models now prepares `new_data` the same way as
+  [`predict()`](https://rdrr.io/r/stats/predict.html), so models fit
+  with the formula interface can be used with data containing factor
+  predictors.
+
 ## parsnip 1.6.1
 
 CRAN release: 2026-09-27
