@@ -1,0 +1,94 @@
+```{r, child="aaa.Rmd", include=FALSE}
+```
+
+`r descr_models("rand_forest", "ocf")`
+
+## Tuning Parameters
+
+```{r}
+#| label: ocf-param-info
+#| echo: false
+defaults <-
+  tibble::tibble(
+    parsnip = c(
+      "mtry", "trees", "min_n", "max.depth",
+      "sample.fraction", "honesty", "honesty.fraction",
+      "replace", "alpha"
+    ),
+    default = c(
+      "see below", "500L", "5L", "0L",
+      "see below", "FALSE", "0.5",
+      "FALSE", "0.2"
+    )
+  )
+
+param <-
+  rand_forest() |>
+  set_engine("ocf") |>
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r ocf-param-list, echo=FALSE, results='asis'}
+param$item
+```
+
+`mtry` depends on the number of columns and the model mode. The default in [ocf::ocf()] is `ceiling(sqrt(ncol(x)))`.
+
+`sample.fraction` defaults to `1` when `replace = TRUE` and to `0.5` otherwise.
+
+`alpha` is the minimum fraction of parent observations in each split; it is restricted to `[0, 0.5]`.
+
+`max.depth = 0` allows unlimited depth; the `tree_depth()` dial covers only positive finite depths.
+
+## Translation from parsnip to the original package (classification)
+
+```{r, ocf-cls}
+library(ordered)
+
+rand_forest(
+  mtry = integer(1),
+  trees = integer(1),
+  min_n = integer(1)
+) |>
+  set_engine(
+    "ocf",
+    sample.fraction = 0.5,
+    honesty = FALSE,
+    replace = FALSE,
+    alpha = 0.2,
+    max.depth = 0
+  ) |>
+  set_mode("classification") |>
+  translate()
+```
+
+## Preprocessing requirements
+
+Factor predictors are converted to full sets of indicator variables (one-hot encoding). No intercept is included.
+
+## Case weights
+
+```{r}
+#| child: template-no-case-weights.Rmd
+```
+
+## Other notes
+
+By default, parallel processing is turned off. To change it, use the `n.threads` argument via [set_engine()].
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "ocf") |>
+  dplyr::select(mode, type)
+```
+
+## References
+
+- Di Francesco, R. 2025. Ordered Correlation Forest. _Econometric Reviews_. \doi{10.1080/07474938.2024.2429596}.
+
+- Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.

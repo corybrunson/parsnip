@@ -140,6 +140,7 @@ model_info_table <-
     "rand_forest"          , "classification"      , "aorsf"            , "bonsai"        ,
     "rand_forest"          , "classification"      , "grf"              , NA              ,
     "rand_forest"          , "classification"      , "h2o"              , "agua"          ,
+    "rand_forest"          , "classification"      , "ocf"              , "ordered"       ,
     "rand_forest"          , "classification"      , "ordinalForest"    , "ordered"       ,
     "rand_forest"          , "classification"      , "orf"              , "ordered"       ,
     "rand_forest"          , "classification"      , "partykit"         , "bonsai"        ,
