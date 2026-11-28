@@ -1,0 +1,79 @@
+```{r, child="aaa.Rmd", include=FALSE}
+```
+
+`r descr_models("ordinal_reg", "ordinalgmifs")`
+
+## Tuning Parameters
+
+```{r ordinalgmifs-param-info, echo=FALSE}
+defaults <-
+  tibble::tibble(
+    parsnip = c("ordinal_link", "odds_link"),
+    default = c("logistic", "cumulative")
+  )
+
+param <-
+  ordinal_reg() |>
+  set_engine("ordinalgmifs") |>
+  make_parameter_list(defaults)
+```
+
+This model has `r nrow(param)` tuning parameters:
+
+```{r, ordinalgmifs-param-list, echo=FALSE, results='asis'}
+param$item
+```
+
+## Translation from parsnip to the original package
+
+`r uses_extension("ordinal_reg", "ordinalgmifs", "classification")`
+
+```{r ordinalgmifs-oreg, warning = FALSE}
+library(ordered)
+
+ordinal_reg(
+  ordinal_link = character(0),
+  odds_link = character(0)
+) |>
+  set_engine("ordinalgmifs", x = c("Cont")) |>
+  # "classification" is the only mode
+  translate()
+```
+
+## Preprocessing requirements
+
+```{r}
+#| child: template-makes-dummies.Rmd
+```
+
+The `x` engine argument names penalized predictor columns after preprocessing.
+For factor predictors, use the names of the generated indicator columns.
+
+`ordinalgmifs::ordinalgmifs()` centers and scales penalized predictors by
+default; set the native `scale` argument through `set_engine()` to change this.
+
+## Case weights
+
+```{r}
+#| child: template-no-case-weights.Rmd
+```
+
+## Other notes
+
+Some combinations of `probability.model` and `link` are rejected, while others
+warn and continue using the link supported by `ordinalgmifs`. The engine
+translates the standardized `odds_link` and `ordinal_link` arguments but does
+not check model and link compatibility in advance.
+
+## Prediction types
+
+```{r}
+#| label: predict-types
+parsnip:::get_from_env("ordinal_reg_predict") |>
+  dplyr::filter(engine == "ordinalgmifs") |>
+  dplyr::select(mode, type)
+```
+
+## References
+
+- Archer KJ, Hou J, Zhou Q, Ferber K, Layne G. 2014. Ordinal Regression for High-Dimensional Data: The Generalized Monotone Incremental Forward Stagewise Method. _Journal of Statistical Software_ 60(13):1-31. \doi{10.18637/jss.v060.i13}.

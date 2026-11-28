@@ -215,8 +215,8 @@ check_ordinal_reg_odds_link <- function(x, engine, call = rlang::caller_env()) {
       cli::cli_abort(
         c(
           "The {.val {engine}} engine supports only the cumulative odds link.",
-          "i" = "Use the {.val vglm} or {.val ordinalNet} engine
-          for alternative odds links."
+          "i" = "Use the {.val vglm}, {.val ordinalNet}, or
+          {.val ordinalgmifs} engine for alternative odds links."
         ),
         call = call
       )

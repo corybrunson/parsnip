@@ -13,6 +13,15 @@ test_that("odds_link", {
   expect_snapshot(error = TRUE, {
     check_args(tidy_spec)
   })
+
+  expect_no_error(
+    check_args(
+      ordinal_reg(
+        engine = "ordinalgmifs",
+        odds_link = "adjacent_categories"
+      )
+    )
+  )
 })
 
 test_that("parallel_reg is validated", {

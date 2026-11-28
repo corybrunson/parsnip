@@ -116,6 +116,7 @@ model_info_table <-
     "ordinal_reg"          , "classification"      , "clm"              , "ordered"       ,
     "ordinal_reg"          , "classification"      , "glmnetcr"         , "ordered"       ,
     "ordinal_reg"          , "classification"      , "lrm"              , "ordered"       ,
+    "ordinal_reg"          , "classification"      , "ordinalgmifs"     , "ordered"       ,
     "ordinal_reg"          , "classification"      , "ordinalNet"       , "ordered"       ,
     "ordinal_reg"          , "classification"      , "orm"              , "ordered"       ,
     "ordinal_reg"          , "classification"      , "polr"             , "ordered"       ,
