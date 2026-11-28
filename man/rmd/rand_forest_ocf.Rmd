@@ -1,4 +1,6 @@
-```{r, child="aaa.Rmd", include=FALSE}
+```{r}
+#| child: aaa.Rmd
+#| include: false
 ```
 
 `r descr_models("rand_forest", "ocf")`
@@ -16,7 +18,7 @@ defaults <-
       "replace", "alpha"
     ),
     default = c(
-      "see below", "500L", "5L", "0L",
+      "see below", "2000L", "5L", "0L",
       "see below", "FALSE", "0.5",
       "FALSE", "0.2"
     )
@@ -30,7 +32,10 @@ param <-
 
 This model has `r nrow(param)` tuning parameters:
 
-```{r ocf-param-list, echo=FALSE, results='asis'}
+```{r}
+#| label: ocf-param-list
+#| echo: false
+#| results: asis
 param$item
 ```
 
@@ -38,13 +43,18 @@ param$item
 
 `sample.fraction` defaults to `1` when `replace = TRUE` and to `0.5` otherwise.
 
-`alpha` is the minimum fraction of parent observations in each split; it is restricted to `[0, 0.5]`.
+`alpha` is the minimum fraction of parent observations in each child of a split; it is restricted to `[0, 0.5]`.
+
+`honesty.fraction` is used only when `honesty = TRUE`.
 
 `max.depth = 0` allows unlimited depth; the `tree_depth()` dial covers only positive finite depths.
 
 ## Translation from parsnip to the original package (classification)
 
-```{r, ocf-cls}
+`r uses_extension("rand_forest", "ocf", "classification")`
+
+```{r}
+#| label: ocf-cls
 library(ordered)
 
 rand_forest(
@@ -89,6 +99,5 @@ parsnip:::get_from_env("rand_forest_predict") |>
 
 ## References
 
-- Di Francesco, R. 2025. Ordered Correlation Forest. _Econometric Reviews_. \doi{10.1080/07474938.2024.2429596}.
-
-- Kuhn, M, and K Johnson. 2013. _Applied Predictive Modeling_. Springer.
+- Di Francesco, R. 2025. Ordered Correlation Forest. _Econometric Reviews_
+  44(4):416-432. \doi{10.1080/07474938.2024.2429596}.

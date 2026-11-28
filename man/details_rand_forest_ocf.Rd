@@ -5,7 +5,138 @@
 \title{Random forests via ocf}
 \description{
 \code{\link[ocf:ocf]{ocf::ocf()}} fits ordered correlation forests, which estimate conditional
-choice probabilities for ordered outcomes using ensembles of regression
-models.
+choice probabilities for ordered outcomes using a collection of forests,
+one per ordered class.
+}
+\details{
+For this engine, there is a single mode: classification
+\subsection{Tuning Parameters}{
+
+This model has 9 tuning parameters:
+\itemize{
+\item \code{mtry}: # Randomly Selected Predictors (type: integer, default: see
+below)
+\item \code{trees}: # Trees (type: integer, default: 2000L)
+\item \code{min_n}: Minimal Node Size (type: integer, default: 5L)
+\item \code{sample.fraction}: Subsampling Fraction (type: double, default: see
+below)
+\item \code{honesty}: Honest Splitting? (type: logical, default: FALSE)
+\item \code{honesty.fraction}: Honest Sample Fraction (type: double, default:
+0.5)
+\item \code{replace}: Sample With Replacement? (type: logical, default: FALSE)
+\item \code{alpha}: Balance Parameter (type: double, default: 0.2)
+\item \code{max.depth}: Tree Depth (type: integer, default: 0L)
+}
+
+The default for \code{mtry} in \code{\link[ocf:ocf]{ocf::ocf()}} is
+\code{ceiling(sqrt(ncol(x)))}, where \code{x} is the one-hot-encoded predictor
+matrix. Parsnip caps a user-supplied \code{mtry} at the number of columns in
+that matrix.
+
+\code{sample.fraction} defaults to \code{1} when \code{replace = TRUE} and to \code{0.5}
+otherwise.
+
+\code{alpha} is the minimum fraction of parent observations that must be left
+on each side of a split; it is restricted to \verb{[0, 0.5]}. The \code{ordered}
+wrapper validates this value before fitting.
+
+\code{honesty.fraction} is used only when \code{honesty = TRUE}.
+
+\code{max.depth = 0} allows unlimited depth; the \code{tree_depth()} dial covers
+only positive finite depths.
+}
+
+\subsection{Translation from parsnip to the original package (classification)}{
+
+The \strong{ordered} extension package is required to fit this model.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(ordered)
+
+rand_forest(
+  mtry = integer(1),
+  trees = integer(1),
+  min_n = integer(1)
+) |>
+  set_engine(
+    "ocf",
+    sample.fraction = 0.5,
+    honesty = FALSE,
+    replace = FALSE,
+    alpha = 0.2,
+    max.depth = 0
+  ) |>
+  set_mode("classification") |>
+  translate()
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Random Forest Model Specification (classification)
+## 
+## Main Arguments:
+##   mtry = integer(1)
+##   trees = integer(1)
+##   min_n = integer(1)
+## 
+## Engine-Specific Arguments:
+##   sample.fraction = 0.5
+##   honesty = FALSE
+##   replace = FALSE
+##   alpha = 0.2
+##   max.depth = 0
+## 
+## Computational engine: ocf 
+## 
+## Model fit template:
+## ordered::ocf_wrapper(X = missing_arg(), Y = missing_arg(), mtry = min_cols(~integer(1), 
+##     x), n.trees = integer(1), min.node.size = min_rows(~integer(1), 
+##     x), sample.fraction = 0.5, honesty = FALSE, replace = FALSE, 
+##     alpha = 0.2, max.depth = 0, n.threads = 1)
+}\if{html}{\out{</div>}}
+
+The \code{ordered} package uses \code{ordered::ocf_wrapper()} to convert predictor
+data to a numeric matrix and the ordered outcome to integer class codes
+before calling \code{\link[ocf:ocf]{ocf::ocf()}}.
+}
+
+\subsection{Preprocessing requirements}{
+
+Factor predictors are converted to full sets of indicator variables
+(one-hot encoding). No intercept is included. This keeps the numeric
+predictor matrix stable: \code{\link[ocf:ocf]{ocf::ocf()}} otherwise maps
+factors to a single integer-coded column whose values depend on factor
+level order.
+}
+
+\subsection{Case weights}{
+
+The underlying model implementation does not allow for case weights.
+}
+
+\subsection{Other notes}{
+
+By default, parallel processing is turned off. To change it, use the
+\code{n.threads} argument via \code{\link[=set_engine]{set_engine()}}.
+}
+
+\subsection{Prediction types}{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{parsnip:::get_from_env("rand_forest_predict") |>
+  dplyr::filter(engine == "ocf") |>
+  dplyr::select(mode, type)
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## # A tibble: 2 x 2
+##   mode           type 
+##   <chr>          <chr>
+## 1 classification class
+## 2 classification prob
+}\if{html}{\out{</div>}}
+}
+
+\subsection{References}{
+\itemize{
+\item Di Francesco, R. 2025. Ordered Correlation Forest. \emph{Econometric
+Reviews} 44(4):416-432. .
+}
+}
 }
 \keyword{internal}
